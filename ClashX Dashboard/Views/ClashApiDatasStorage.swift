@@ -1,0 +1,152 @@
+//
+//  ClashApiDatasStorage.swift
+//  ClashX Dashboard
+//
+//
+
+import Cocoa
+import SwiftUI
+import CocoaLumberjackSwift
+
+class ClashApiDatasStorage: NSObject, ObservableObject {
+	
+	@Published var overviewData = ClashOverviewData()
+	
+	@Published var logStorage = ClashLogStorage()
+	@Published var connsStorage = ClashConnsStorage()
+	
+	func resetStreamApi() {
+		ApiRequest.shared.delegate = self
+		ApiRequest.shared.resetStreamApis()
+	}
+}
+
+extension ClashApiDatasStorage: ApiRequestStreamDelegate {
+	func streamStatusChanged() {
+		print("streamStatusChanged", ConfigManager.shared.isRunning)
+		
+	}
+
+	func didUpdateTraffic(up: Int, down: Int) {
+		overviewData.down = down
+		overviewData.up = up
+	}
+	
+	func didGetLog(log: String, level: String) {
+		DispatchQueue.main.async {
+			self.logStorage.logs.append(.init(level: level, log: log))
+			
+			if self.logStorage.logs.count > 1000 {
+				self.logStorage.logs.removeFirst(100)
+			}
+		}
+	}
+}
+
+fileprivate let TrafficHistoryLimit = 120
+
+class ClashOverviewData: ObservableObject, Identifiable {
+	let id = UUID().uuidString
+	
+	@Published var uploadString = "N/A"
+	@Published var downloadString = "N/A"
+	
+	@Published var downloadTotal = "N/A"
+	@Published var uploadTotal = "N/A"
+	
+	@Published var activeConns = "0"
+	
+	@Published var downloadHistories = [CGFloat](repeating: 0, count: TrafficHistoryLimit)
+	@Published var uploadHistories = [CGFloat](repeating: 0, count: TrafficHistoryLimit)
+	
+	var down: Int = 0 {
+		didSet {
+			downloadString = getSpeedString(for: down)
+			downloadHistories.append(CGFloat(down))
+			
+			if downloadHistories.count > 120 {
+				downloadHistories.removeFirst()
+			}
+		}
+	}
+	
+	var up: Int = 0 {
+		didSet {
+			uploadString = getSpeedString(for: up)
+			uploadHistories.append(CGFloat(up))
+			
+			if uploadHistories.count > 120 {
+				uploadHistories.removeFirst()
+			}
+		}
+	}
+	
+	var downTotal: Int = 0 {
+		didSet {
+			downloadTotal = getSpeedString(for: downTotal).replacingOccurrences(of: "/s", with: "")
+		}
+	}
+	
+	var upTotal: Int = 0 {
+		didSet {
+			uploadTotal = getSpeedString(for: upTotal).replacingOccurrences(of: "/s", with: "")
+		}
+	}
+	
+	func getSpeedString(for byte: Int) -> String {
+		let kb = byte / 1024
+		if kb < 1024 {
+			return  "\(kb)KB/s"
+		} else {
+			let mb = Double(kb) / 1024.0
+			if mb >= 100 {
+				if mb >= 1000 {
+					return String(format: "%.1fGB/s", mb/1024)
+				}
+				return String(format: "%.1fMB/s", mb)
+			} else {
+				return String(format: "%.2fMB/s", mb)
+			}
+		}
+	}
+}
+
+class ClashLogStorage: ObservableObject {
+	@Published var logs = [ClashLog]()
+	
+	class ClashLog: NSObject, ObservableObject, Identifiable {
+		let id: String
+		
+		let date: Date
+		let level: ClashLogLevel
+		@objc let log: String
+		
+		let levelColor: Color
+		@objc let levelString: String
+		
+		init(level: String, log: String) {
+			self.date = Date()
+			self.level = .init(rawValue: level) ?? .unknow
+			self.log = log
+			
+			id = "\(date)" + log
+			self.levelString = level
+			switch self.level {
+			case .info:
+				levelColor = .blue
+			case .warning:
+				levelColor = .yellow
+			case .error:
+				levelColor = .red
+			case .debug:
+				levelColor = .green
+			default:
+				levelColor = .white
+			}
+		}
+	}
+}
+
+class ClashConnsStorage: ObservableObject {
+	@Published var conns = [ClashConnection]()
+}
