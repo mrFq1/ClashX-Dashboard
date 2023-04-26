@@ -45,14 +45,40 @@ struct TrafficGraphView: View {
     }
 	
 	var graphView: some View {
-		DSFSparklineLineGraphView.SwiftUI(
-			dataSource: dataSource,
-			graphColor: graphColor,
-			interpolated: false,
-			showZeroLine: false
-		
-		)
+		ZStack {
+			DSFSparklineLineGraphView.SwiftUI(
+				dataSource: dataSource,
+				graphColor: graphColor,
+				interpolated: false,
+				showZeroLine: false
+			)
+			
+			DSFSparklineSurface.SwiftUI([
+				gridOverlay
+			])
+		}
 	}
+	
+	let gridOverlay: DSFSparklineOverlay = {
+		let grid = DSFSparklineOverlay.GridLines()
+		grid.dataSource = .init(values: [1], range: 0...1)
+		
+		
+		var floatValues = [CGFloat]()
+		for i in 0...labelsCount {
+			floatValues.append(CGFloat(i) / CGFloat(labelsCount))
+		}
+		let _ = floatValues.removeFirst()
+		
+		grid.floatValues = floatValues.reversed()
+		
+		grid.strokeColor = DSFColor.systemGray.withAlphaComponent(0.3).cgColor
+		grid.strokeWidth = 0.5
+		grid.dashStyle = [2, 2]
+
+		return grid
+	}()
+	
 	
 	func updateChart(_ values: [CGFloat]) {
 		let max = values.max() ?? CGFloat(labelsCount) * 1000
