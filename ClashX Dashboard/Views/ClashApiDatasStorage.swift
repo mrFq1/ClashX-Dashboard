@@ -94,14 +94,14 @@ class ClashOverviewData: ObservableObject, Identifiable {
 	}
 	
 	func getSpeedString(for byte: Int) -> String {
-		let kb = byte / 1024
-		if kb < 1024 {
+		let kb = byte / 1000
+		if kb < 1000 {
 			return  "\(kb)KB/s"
 		} else {
-			let mb = Double(kb) / 1024.0
+			let mb = Double(kb) / 1000
 			if mb >= 100 {
 				if mb >= 1000 {
-					return String(format: "%.1fGB/s", mb/1024)
+					return String(format: "%.1fGB/s", mb/1000)
 				}
 				return String(format: "%.1fMB/s", mb)
 			} else {
