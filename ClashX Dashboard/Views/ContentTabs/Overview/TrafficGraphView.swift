@@ -11,32 +11,32 @@ fileprivate let labelsCount = 4
 
 struct TrafficGraphView: View {
 	@Binding var values: [CGFloat]
-	
 	@State var graphColor: DSFColor
 	
 	init(values: Binding<[CGFloat]>,
 		 graphColor: DSFColor) {
 		self._values = values
 		self.graphColor = graphColor
-		
-		updateChart(values.wrappedValue)
 	}
 	
 	
 	@State private var labels = [String]()
 	@State private var dataSource = DSFSparkline.DataSource()
-	
+	@State private var currentMaxValue: CGFloat = 0
 	
     var body: some View {
 		HStack {
 			VStack {
-				ForEach(Array(labels.enumerated()), id: \.offset) {
-					Text($0.element)
+				ForEach(labels, id: \.self) {
+					Text($0)
 						.font(.system(size: 11, weight: .light))
 					Spacer()
 				}
 			}
 			graphView
+		}
+		.onAppear {
+			updateChart(values)
 		}
 		.onChange(of: values) { newValue in
 			updateChart(newValue)
@@ -83,6 +83,13 @@ struct TrafficGraphView: View {
 	func updateChart(_ values: [CGFloat]) {
 		let max = values.max() ?? CGFloat(labelsCount) * 1000
 		
+		if currentMaxValue != 0 && currentMaxValue == max {
+			self.dataSource.set(values: values)
+			return
+		} else {
+			currentMaxValue = max
+		}
+		
 		let byte = Int64(max)
 		let kb = byte / 1000
 		
@@ -111,14 +118,11 @@ struct TrafficGraphView: View {
 			v3 = 1_000_000
 		}
 		
-		v1 = (v1 * 10).rounded() / 10
-		
-		let vv = v1.truncatingRemainder(dividingBy: 1) == 0 ? Double(labelsCount) : Double(labelsCount) / 10
+		let vv = Double(labelsCount) / 10
 		
 		if v1.truncatingRemainder(dividingBy: vv) != 0 {
-			v1 = ((v1 / vv).rounded() + 1) * vv
+			v1 = Double((Int(v1 / vv) + 1)) * vv
 		}
-		
 		
 		var re = [String]()
 		
@@ -129,17 +133,10 @@ struct TrafficGraphView: View {
 		re = re.reversed()
 		let _ = re.removeLast()
 		
+		let upperBound = CGFloat(v1*v3*1000)
 		
 		self.dataSource.set(values: values)
-		
-		let upperBound = CGFloat(v1*v3)
-		if upperBound != 0,
-		   let old = self.dataSource.range?.upperBound,
-		   old != upperBound {
-			self.dataSource.setRange(lowerBound: 0, upperBound: upperBound)
-			self.dataSource.resetRange()
-		}
-		
+		self.dataSource.setRange(lowerBound: 0, upperBound: upperBound)
 		self.labels = re
 	}
 }
