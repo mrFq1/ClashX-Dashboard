@@ -37,9 +37,7 @@
 		0192B5C029DE5134002CDBF3 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 0192B5BF29DE5134002CDBF3 /* Starscream */; };
 		0192B5CA29DE5151002CDBF3 /* ClashConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192B5C229DE5150002CDBF3 /* ClashConfig.swift */; };
 		0192B5CB29DE5151002CDBF3 /* ClashProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192B5C329DE5150002CDBF3 /* ClashProvider.swift */; };
-		0192B5CC29DE5151002CDBF3 /* SavedProxyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192B5C429DE5150002CDBF3 /* SavedProxyModel.swift */; };
 		0192B5CD29DE5151002CDBF3 /* ClashProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192B5C529DE5150002CDBF3 /* ClashProxy.swift */; };
-		0192B5CE29DE5151002CDBF3 /* RemoteConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192B5C629DE5150002CDBF3 /* RemoteConfigModel.swift */; };
 		0192B5CF29DE5151002CDBF3 /* ClashConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192B5C729DE5150002CDBF3 /* ClashConnection.swift */; };
 		0192B5D029DE5151002CDBF3 /* ClashRuleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192B5C829DE5150002CDBF3 /* ClashRuleProvider.swift */; };
 		0192B5D129DE5151002CDBF3 /* ClashRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192B5C929DE5150002CDBF3 /* ClashRule.swift */; };
@@ -90,9 +88,7 @@
 		0192B5B629DE5098002CDBF3 /* ApiRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiRequest.swift; path = ../../../ClashX.Meta/ClashX/General/ApiRequest.swift; sourceTree = "<group>"; };
 		0192B5C229DE5150002CDBF3 /* ClashConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClashConfig.swift; sourceTree = "<group>"; };
 		0192B5C329DE5150002CDBF3 /* ClashProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClashProvider.swift; sourceTree = "<group>"; };
-		0192B5C429DE5150002CDBF3 /* SavedProxyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedProxyModel.swift; sourceTree = "<group>"; };
 		0192B5C529DE5150002CDBF3 /* ClashProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClashProxy.swift; sourceTree = "<group>"; };
-		0192B5C629DE5150002CDBF3 /* RemoteConfigModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteConfigModel.swift; sourceTree = "<group>"; };
 		0192B5C729DE5150002CDBF3 /* ClashConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClashConnection.swift; sourceTree = "<group>"; };
 		0192B5C829DE5150002CDBF3 /* ClashRuleProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClashRuleProvider.swift; sourceTree = "<group>"; };
 		0192B5C929DE5150002CDBF3 /* ClashRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClashRule.swift; sourceTree = "<group>"; };
@@ -237,9 +233,7 @@
 			children = (
 				0192B5C229DE5150002CDBF3 /* ClashConfig.swift */,
 				0192B5C329DE5150002CDBF3 /* ClashProvider.swift */,
-				0192B5C429DE5150002CDBF3 /* SavedProxyModel.swift */,
 				0192B5C529DE5150002CDBF3 /* ClashProxy.swift */,
-				0192B5C629DE5150002CDBF3 /* RemoteConfigModel.swift */,
 				0192B5C729DE5150002CDBF3 /* ClashConnection.swift */,
 				0192B5C829DE5150002CDBF3 /* ClashRuleProvider.swift */,
 				0192B5C929DE5150002CDBF3 /* ClashRule.swift */,
@@ -433,7 +427,6 @@
 				0192B5CF29DE5151002CDBF3 /* ClashConnection.swift in Sources */,
 				018C836C29E17505006366D3 /* ClashApiDatasStorage.swift in Sources */,
 				018A61BD29E9A2ED008608C0 /* APISettingView.swift in Sources */,
-				0192B5CC29DE5151002CDBF3 /* SavedProxyModel.swift in Sources */,
 				010F693B29ED639A00BAAFB5 /* ClashServerAppStorage.swift in Sources */,
 				01F885D329E04E21008241EB /* ProxyGroupView.swift in Sources */,
 				0192315F29DD4DCF00539EDD /* ClashX_DashboardApp.swift in Sources */,
@@ -442,7 +435,6 @@
 				01A351A229DD8F440054894E /* RuleItemView.swift in Sources */,
 				01F885D529E053DE008241EB /* ProxyItemView.swift in Sources */,
 				0192B5D029DE5151002CDBF3 /* ClashRuleProvider.swift in Sources */,
-				0192B5CE29DE5151002CDBF3 /* RemoteConfigModel.swift in Sources */,
 				0192317129DD566000539EDD /* SidebarView.swift in Sources */,
 				0192B5D129DE5151002CDBF3 /* ClashRule.swift in Sources */,
 				0192317C29DD5DF200539EDD /* ConnectionsView.swift in Sources */,
