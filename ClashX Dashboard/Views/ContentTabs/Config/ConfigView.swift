@@ -33,25 +33,21 @@ struct ConfigView: View {
 				VStack(alignment: .leading) {
 					Text("Http Port")
 					TextField("0", value: $httpPort, formatter: NumberFormatter())
-						.disabled(disableAll)
 				}
 				
 				VStack(alignment: .leading) {
 					Text("Socks5 Port")
 					TextField("0", value: $socks5Port, formatter: NumberFormatter())
-						.disabled(disableAll)
 				}
 				
 				VStack(alignment: .leading) {
 					Text("Mixed Port")
 					TextField("0", value: $mixedPort, formatter: NumberFormatter())
-						.disabled(disableAll)
 				}
 				
 				VStack(alignment: .leading) {
 					Text("Redir Port")
 					TextField("0", value: $redirPort, formatter: NumberFormatter())
-						.disabled(disableAll)
 				}
 				
 				VStack(alignment: .leading) {
@@ -62,7 +58,6 @@ struct ConfigView: View {
 						}
 					}
 					.pickerStyle(.menu)
-					.disabled(disableAll)
 				}
 				
 				VStack(alignment: .leading) {
@@ -73,12 +68,9 @@ struct ConfigView: View {
 						}
 					}
 					.pickerStyle(.menu)
-					.disabled(disableAll)
 				}
 				Toggle("Allow LAN", isOn: $allowLAN)
-					.disabled(disableAll)
 				Toggle("Sniffer", isOn: $sniffer)
-					.disabled(disableAll)
 			}
 			.padding()
 			
@@ -90,7 +82,6 @@ struct ConfigView: View {
 				GridItem(.flexible())
 			]) {
 				Toggle("Enable TUN Device", isOn: $enableTUNDevice)
-					.disabled(disableAll)
 				
 				VStack(alignment: .leading) {
 					Text("TUN IP Stack")
@@ -100,24 +91,22 @@ struct ConfigView: View {
 						}
 					}
 					.pickerStyle(.menu)
-					.disabled(disableAll)
 				}
 				
 				VStack(alignment: .leading) {
 					Text("Device Name")
 					TextField("utun9", text: $deviceName)
-						.disabled(disableAll)
 				}
 				
 				VStack(alignment: .leading) {
 					Text("Interface Name")
 					TextField("en0", text: $interfaceName)
-						.disabled(disableAll)
 				}
 				
 			}
 			.padding()
 		}
+		.disabled(disableAll)
 		.onAppear {
 			ApiRequest.requestConfig { config in
 				httpPort = config.port
