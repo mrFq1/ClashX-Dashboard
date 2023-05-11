@@ -12,21 +12,20 @@ struct OverviewTopItemView: View {
 	@Binding var value: String
 	
     var body: some View {
-		VStack(alignment: .leading) {
+		VStack(alignment: .leading, spacing: 8) {
 			HStack {
 				Text(name)
 					.font(.subheadline)
 					.foregroundColor(.secondary)
 				Spacer()
 			}
-			Spacer()
 			Text(value)
 				.font(.system(size: 16))
 		}
-		.frame(width: 130, height: 45)
-		.padding(EdgeInsets(top: 12, leading: 14, bottom: 12, trailing: 14))
+		.frame(width: 125)
+		.padding(EdgeInsets(top: 10, leading: 13, bottom: 10, trailing: 13))
 		.background(.white)
-		.cornerRadius(12)
+		.cornerRadius(10)
     }
 }
 
