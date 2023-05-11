@@ -23,7 +23,18 @@ struct OverviewView: View {
 				OverviewTopItemView(name: "Active Connections", value: $data.activeConns)
 			}
 			
-	
+			HStack {
+				RoundedRectangle(cornerRadius: 2)
+					.fill(Color(nsColor: .systemBlue))
+					.frame(width: 20, height: 13)
+				Text("Down")
+				
+				RoundedRectangle(cornerRadius: 2)
+					.fill(Color(nsColor: .systemGreen))
+					.frame(width: 20, height: 13)
+				Text("Up")
+			}
+			
 			
 			TrafficGraphView(values: $data.downloadHistories,
 							 graphColor: .systemBlue)
@@ -31,7 +42,6 @@ struct OverviewView: View {
 			TrafficGraphView(values: $data.uploadHistories,
 							 graphColor: .systemGreen)
 
-			
 		}.padding()
     }
 	
