@@ -16,6 +16,7 @@
 		0172CB5129E5AE670072DDEF /* SwiftUIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172CB5029E5AE670072DDEF /* SwiftUIViewExtensions.swift */; };
 		017753C029EF7FB2006999DB /* APIServerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017753BF29EF7FB1006999DB /* APIServerItem.swift */; };
 		017DCADD29E83BFD00B9622A /* RuleProviderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017DCADC29E83BFD00B9622A /* RuleProviderView.swift */; };
+		017F9AAA2A0DFEBD00B81497 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 017F9AA92A0DFEBD00B81497 /* Introspect */; };
 		018A61BD29E9A2ED008608C0 /* APISettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A61BC29E9A2ED008608C0 /* APISettingView.swift */; };
 		018C836C29E17505006366D3 /* ClashApiDatasStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018C836B29E17505006366D3 /* ClashApiDatasStorage.swift */; };
 		0192315F29DD4DCF00539EDD /* ClashX_DashboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192315E29DD4DCF00539EDD /* ClashX_DashboardApp.swift */; };
@@ -115,6 +116,7 @@
 				0192B5BA29DE50F8002CDBF3 /* Alamofire in Frameworks */,
 				019D6A9629F194C600A6AC02 /* DSFSparkline in Frameworks */,
 				0192B5D429DE5190002CDBF3 /* CocoaLumberjackSwift in Frameworks */,
+				017F9AAA2A0DFEBD00B81497 /* Introspect in Frameworks */,
 				01CD0A9229E93ABB00F4C17E /* DifferenceKit in Frameworks */,
 				0192B5C029DE5134002CDBF3 /* Starscream in Frameworks */,
 			);
@@ -344,6 +346,7 @@
 				0192B5D329DE5190002CDBF3 /* CocoaLumberjackSwift */,
 				01CD0A9129E93ABB00F4C17E /* DifferenceKit */,
 				019D6A9529F194C600A6AC02 /* DSFSparkline */,
+				017F9AA92A0DFEBD00B81497 /* Introspect */,
 			);
 			productName = "ClashX Dashboard";
 			productReference = 0192315B29DD4DCF00539EDD /* ClashX Dashboard.app */;
@@ -380,6 +383,7 @@
 				0192B5D229DE5190002CDBF3 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 				01CD0A9029E93ABB00F4C17E /* XCRemoteSwiftPackageReference "DifferenceKit" */,
 				019D6A9429F194C600A6AC02 /* XCRemoteSwiftPackageReference "DSFSparkline" */,
+				017F9AA82A0DFEBD00B81497 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 0192315C29DD4DCF00539EDD /* Products */;
 			projectDirPath = "";
@@ -643,6 +647,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		017F9AA82A0DFEBD00B81497 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.3;
+			};
+		};
 		0192B5B829DE50F8002CDBF3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -694,6 +706,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		017F9AA92A0DFEBD00B81497 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 017F9AA82A0DFEBD00B81497 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
 		0192B5B929DE50F8002CDBF3 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0192B5B829DE50F8002CDBF3 /* XCRemoteSwiftPackageReference "Alamofire" */;
