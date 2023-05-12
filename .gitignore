@@ -113,3 +113,11 @@ browser/Firefox_Open_In_IINA/*
 
 deps/executable/youtube-dl
 
+
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
