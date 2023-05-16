@@ -41,8 +41,9 @@ struct ProxiesView: View {
 	
 	func loadProxies() {
 //			self.isGlobalMode = ConfigManager.shared.currentConfig?.mode == .global
-		ApiRequest.requestProxyGroupList {
-			proxyStorage.groups = DBProxyStorage($0).groups.filter {
+		ApiRequest.getMergedProxyData {
+			guard let resp = $0 else { return }
+			proxyStorage.groups = DBProxyStorage(resp).groups.filter {
 				isGlobalMode ? true : $0.name != "GLOBAL"
 			}
 		}
