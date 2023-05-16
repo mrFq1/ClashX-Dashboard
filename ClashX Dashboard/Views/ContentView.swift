@@ -6,10 +6,17 @@
 
 import SwiftUI
 
+class HideProxyNames: ObservableObject, Identifiable {
+	let id = UUID().uuidString
+	@Published var hide = false
+}
+
 struct ContentView: View {
 	
 	private let runningState = NotificationCenter.default.publisher(for: .init("ClashRunningStateChanged"))
 	@State private var isRunning = false
+	
+	@StateObject private var hideProxyNames = HideProxyNames()
 	
 	var body: some View {
 		Group {
@@ -24,6 +31,7 @@ struct ContentView: View {
 				}
 			}
 		}
+		.environmentObject(hideProxyNames)
 		.toolbar {
 			ToolbarItem(placement: .navigation) {
 				Button {
@@ -32,6 +40,15 @@ struct ContentView: View {
 					Image(systemName: "sidebar.left")
 				}
 				.help("Toggle Sidebar")
+				.disabled(!isRunning)
+			}
+			
+			ToolbarItem {
+				Button {
+					hideProxyNames.hide = !hideProxyNames.hide
+				} label: {
+					Image(systemName: hideProxyNames.hide ? "eyeglasses" : "wand.and.stars")
+				}
 				.disabled(!isRunning)
 			}
 		}

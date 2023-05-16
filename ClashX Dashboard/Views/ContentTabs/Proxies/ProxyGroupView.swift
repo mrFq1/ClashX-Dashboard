@@ -11,6 +11,8 @@ struct ProxyGroupView: View {
 	@ObservedObject var proxyGroup: DBProxyGroup
 	@EnvironmentObject var searchString: ProxiesSearchString
 	
+	@EnvironmentObject var hideProxyNames: HideProxyNames
+	
 	@State private var columnCount: Int = 3
 	@State private var isUpdatingSelect = false
 	@State private var selectable = false
@@ -56,7 +58,9 @@ struct ProxyGroupView: View {
 	
 	var proxyInfoView: some View {
 		HStack() {
-			Text(proxyGroup.name)
+			Text(hideProxyNames.hide
+				 ? String(proxyGroup.id.prefix(8))
+					: proxyGroup.name)
 				.font(.system(size: 17))
 			Text(proxyGroup.type.rawValue)
 				.font(.system(size: 13))

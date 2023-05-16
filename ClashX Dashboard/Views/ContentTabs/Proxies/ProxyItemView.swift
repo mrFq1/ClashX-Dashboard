@@ -11,6 +11,8 @@ struct ProxyItemView: View {
 	@Binding var proxy: DBProxy
 	@State var selectable: Bool
 	
+	@EnvironmentObject var hideProxyNames: HideProxyNames
+	
 	init(proxy: Binding<DBProxy>, selectable: Bool) {
 		self._proxy = proxy
 		self.selectable = selectable
@@ -24,7 +26,9 @@ struct ProxyItemView: View {
 	var body: some View {
 		VStack {
 			HStack(alignment: .center) {
-				Text(proxy.name)
+				Text(hideProxyNames.hide
+					 ? String(proxy.id.prefix(8))
+					 : proxy.name)
 					.truncationMode(.tail)
 					.lineLimit(1)
 				Spacer(minLength: 6)
