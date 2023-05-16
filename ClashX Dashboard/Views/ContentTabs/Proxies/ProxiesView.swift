@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 class ProxiesSearchString: ObservableObject, Identifiable {
 	let id = UUID().uuidString
@@ -13,72 +14,37 @@ class ProxiesSearchString: ObservableObject, Identifiable {
 
 struct ProxiesView: View {
 	
-	@State var proxyInfo: ClashProxyResp?
-	@State var proxyGroups = [ClashProxy]()
-	
-	@State var providerInfo: ClashProviderResp?
-	@State var providers = [ClashProvider]()
-	
-//	@State var proxyProviderList
+	@ObservedObject var proxyStorage = DBProxyStorage()
 	
 	@State private var searchString = ProxiesSearchString()
 	@State private var isGlobalMode = false
-	@State private var proxyListColumnCount = 3
 	
     var body: some View {
-		List() {
-			Text("Proxies")
-				.font(.title)
-			ForEach(proxyGroups, id: \.id) { group in
-				ProxyGroupView(columnCount: $proxyListColumnCount, proxyGroup: group, proxyInfo: proxyInfo!)
+		NavigationView {
+			List(proxyStorage.groups, id: \.id) { group in
+				ProxyGroupRowView(proxyGroup: group)
 			}
-			
-			Text("Proxy Provider")
-				.font(.title)
-				.padding(.top)
-			
-			ForEach($providers, id: \.id) { provider in
-				ProxyProviderGroupView(columnCount: $proxyListColumnCount, providerInfo: provider)
+			.introspectTableView {
+				$0.refusesFirstResponder = true
+				$0.doubleAction = nil
 			}
-		}
-		.background {
-			GeometryReader { geometry in
-				Rectangle()
-					.fill(.clear)
-					.frame(height: 1)
-					.onChange(of: geometry.size.width) { newValue in
-						updateColumnCount(newValue)
-					}
-					.onAppear {
-						updateColumnCount(geometry.size.width)
-					}
-			}.padding()
+			.listStyle(.plain)
+			EmptyView()
 		}
 		.searchable(text: $searchString.string)
 		.environmentObject(searchString)
 		.onAppear {
-			
-//			self.isGlobalMode = ConfigManager.shared.currentConfig?.mode == .global
-			ApiRequest.getMergedProxyData {
-				proxyInfo = $0
-				proxyGroups = ($0?.proxyGroups ?? []).filter {
-					isGlobalMode ? true : $0.name != "GLOBAL"
-				}
-				
-				providerInfo = proxyInfo?.enclosingProviderResp
-				providers = providerInfo?.providers.map {
-					$0.value
-				} ?? []
-			}
+			loadProxies()
 		}
     }
 	
-	func updateColumnCount(_ width: Double) {
-		let v = Int(Int(width) / 200)
-		let new = v == 0 ? 1 : v
-		
-		if new != proxyListColumnCount {
-			proxyListColumnCount = new
+	
+	func loadProxies() {
+//			self.isGlobalMode = ConfigManager.shared.currentConfig?.mode == .global
+		ApiRequest.requestProxyGroupList {
+			proxyStorage.groups = DBProxyStorage($0).groups.filter {
+				isGlobalMode ? true : $0.name != "GLOBAL"
+			}
 		}
 	}
 }

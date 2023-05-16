@@ -11,12 +11,12 @@
 		0140D8F029E6D3C800A515E8 /* ProxyProviderGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0140D8EF29E6D3C800A515E8 /* ProxyProviderGroupView.swift */; };
 		0155D39629F2342F00869830 /* TrafficGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0155D39529F2342F00869830 /* TrafficGraphView.swift */; };
 		0155D39829F23BDE00869830 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0155D39729F23BDE00869830 /* OverviewView.swift */; };
-		0172CB4D29E542410072DDEF /* ProxyItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172CB4C29E542410072DDEF /* ProxyItemData.swift */; };
 		0172CB4F29E562960072DDEF /* ClearBackgroundList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172CB4E29E562960072DDEF /* ClearBackgroundList.swift */; };
 		0172CB5129E5AE670072DDEF /* SwiftUIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172CB5029E5AE670072DDEF /* SwiftUIViewExtensions.swift */; };
 		017753C029EF7FB2006999DB /* APIServerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017753BF29EF7FB1006999DB /* APIServerItem.swift */; };
 		017DCADD29E83BFD00B9622A /* RuleProviderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017DCADC29E83BFD00B9622A /* RuleProviderView.swift */; };
 		017F9AAA2A0DFEBD00B81497 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 017F9AA92A0DFEBD00B81497 /* Introspect */; };
+		017F9AAC2A0E0B2300B81497 /* ProxyGroupRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017F9AAB2A0E0B2300B81497 /* ProxyGroupRowView.swift */; };
 		018A61BD29E9A2ED008608C0 /* APISettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A61BC29E9A2ED008608C0 /* APISettingView.swift */; };
 		018C836C29E17505006366D3 /* ClashApiDatasStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018C836B29E17505006366D3 /* ClashApiDatasStorage.swift */; };
 		0192315F29DD4DCF00539EDD /* ClashX_DashboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192315E29DD4DCF00539EDD /* ClashX_DashboardApp.swift */; };
@@ -52,6 +52,7 @@
 		019D6A9629F194C600A6AC02 /* DSFSparkline in Frameworks */ = {isa = PBXBuildFile; productRef = 019D6A9529F194C600A6AC02 /* DSFSparkline */; };
 		01A351A229DD8F440054894E /* RuleItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A351A129DD8F440054894E /* RuleItemView.swift */; };
 		01A351A929DD9CB00054894E /* Connections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A351A829DD9CB00054894E /* Connections.swift */; };
+		01A3EF042A120103003038B5 /* DBProxyStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3EF032A120103003038B5 /* DBProxyStorage.swift */; };
 		01CD0A9229E93ABB00F4C17E /* DifferenceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 01CD0A9129E93ABB00F4C17E /* DifferenceKit */; };
 		01F885CF29DFD8DF008241EB /* CollectionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F885CE29DFD8DF008241EB /* CollectionsTableView.swift */; };
 		01F885D129E03F20008241EB /* CollectionTableCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F885D029E03F20008241EB /* CollectionTableCellView.xib */; };
@@ -64,11 +65,11 @@
 		0140D8EF29E6D3C800A515E8 /* ProxyProviderGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyProviderGroupView.swift; sourceTree = "<group>"; };
 		0155D39529F2342F00869830 /* TrafficGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficGraphView.swift; sourceTree = "<group>"; };
 		0155D39729F23BDE00869830 /* OverviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
-		0172CB4C29E542410072DDEF /* ProxyItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyItemData.swift; sourceTree = "<group>"; };
 		0172CB4E29E562960072DDEF /* ClearBackgroundList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBackgroundList.swift; sourceTree = "<group>"; };
 		0172CB5029E5AE670072DDEF /* SwiftUIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewExtensions.swift; sourceTree = "<group>"; };
 		017753BF29EF7FB1006999DB /* APIServerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServerItem.swift; sourceTree = "<group>"; };
 		017DCADC29E83BFD00B9622A /* RuleProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleProviderView.swift; sourceTree = "<group>"; };
+		017F9AAB2A0E0B2300B81497 /* ProxyGroupRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyGroupRowView.swift; sourceTree = "<group>"; };
 		018A61BC29E9A2ED008608C0 /* APISettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISettingView.swift; sourceTree = "<group>"; };
 		018C836B29E17505006366D3 /* ClashApiDatasStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashApiDatasStorage.swift; sourceTree = "<group>"; };
 		0192315B29DD4DCF00539EDD /* ClashX Dashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ClashX Dashboard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +102,7 @@
 		019D6A8629F015DF00A6AC02 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		01A351A129DD8F440054894E /* RuleItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleItemView.swift; sourceTree = "<group>"; };
 		01A351A829DD9CB00054894E /* Connections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connections.swift; sourceTree = "<group>"; };
+		01A3EF032A120103003038B5 /* DBProxyStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBProxyStorage.swift; sourceTree = "<group>"; };
 		01F885CE29DFD8DF008241EB /* CollectionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsTableView.swift; sourceTree = "<group>"; };
 		01F885D029E03F20008241EB /* CollectionTableCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionTableCellView.xib; sourceTree = "<group>"; };
 		01F885D229E04E21008241EB /* ProxyGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyGroupView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				0192315E29DD4DCF00539EDD /* ClashX_DashboardApp.swift */,
+				01A3EF022A120032003038B5 /* Models */,
 				018C836A29E174CB006366D3 /* Views */,
 				0192B5B529DE506D002CDBF3 /* ClashX Links */,
 				0192316229DD4DD100539EDD /* Assets.xcassets */,
@@ -296,10 +299,10 @@
 			isa = PBXGroup;
 			children = (
 				0192317729DD5DA500539EDD /* ProxiesView.swift */,
+				017F9AAB2A0E0B2300B81497 /* ProxyGroupRowView.swift */,
 				01F885D229E04E21008241EB /* ProxyGroupView.swift */,
 				0140D8EF29E6D3C800A515E8 /* ProxyProviderGroupView.swift */,
 				01F885D429E053DE008241EB /* ProxyItemView.swift */,
-				0172CB4C29E542410072DDEF /* ProxyItemData.swift */,
 			);
 			path = Proxies;
 			sourceTree = "<group>";
@@ -313,6 +316,14 @@
 				01F885D029E03F20008241EB /* CollectionTableCellView.xib */,
 			);
 			path = Connections;
+			sourceTree = "<group>";
+		};
+		01A3EF022A120032003038B5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				01A3EF032A120103003038B5 /* DBProxyStorage.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		01A7335F29E2CBD600205699 /* Config */ = {
@@ -417,12 +428,13 @@
 				0192316129DD4DCF00539EDD /* ContentView.swift in Sources */,
 				0192318729DD83FF00539EDD /* OverviewTopItemView.swift in Sources */,
 				0172CB4F29E562960072DDEF /* ClearBackgroundList.swift in Sources */,
-				0172CB4D29E542410072DDEF /* ProxyItemData.swift in Sources */,
 				0192318029DD5E0B00539EDD /* LogsView.swift in Sources */,
 				0192318529DD7DCD00539EDD /* SidebarItemView.swift in Sources */,
 				0192317E29DD5E0100539EDD /* ConfigView.swift in Sources */,
 				0155D39629F2342F00869830 /* TrafficGraphView.swift in Sources */,
+				01A3EF042A120103003038B5 /* DBProxyStorage.swift in Sources */,
 				0140D8F029E6D3C800A515E8 /* ProxyProviderGroupView.swift in Sources */,
+				017F9AAC2A0E0B2300B81497 /* ProxyGroupRowView.swift in Sources */,
 				017DCADD29E83BFD00B9622A /* RuleProviderView.swift in Sources */,
 				0192318329DD70B400539EDD /* SidebarItem.swift in Sources */,
 				0155D39829F23BDE00869830 /* OverviewView.swift in Sources */,

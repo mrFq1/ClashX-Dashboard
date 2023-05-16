@@ -8,10 +8,10 @@ import SwiftUI
 
 struct ProxyItemView: View {
 	
-	@Binding var proxy: ProxyItemData
+	@Binding var proxy: DBProxy
 	@State var selectable: Bool
 	
-	init(proxy: Binding<ProxyItemData>, selectable: Bool) {
+	init(proxy: Binding<DBProxy>, selectable: Bool) {
 		self._proxy = proxy
 		self.selectable = selectable
 		

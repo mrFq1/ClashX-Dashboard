@@ -8,68 +8,83 @@ import SwiftUI
 
 struct ProxyGroupView: View {
 	
-	@Binding var columnCount: Int
-	
-	@State var proxyGroup: ClashProxy
-	@State var proxyInfo: ClashProxyResp
-	@State private var proxyItems: [ProxyItemData]
-	@State private var currentProxy: ClashProxyName
-	@State private var isUpdatingSelect = false
-	@State private var selectable = false
-	
-	@State private var isListExpanded = false
-	@State private var isTesting = false
-	
+	@ObservedObject var proxyGroup: DBProxyGroup
 	@EnvironmentObject var searchString: ProxiesSearchString
 	
-	init(columnCount: Binding<Int>,
-		 proxyGroup: ClashProxy,
-		 proxyInfo: ClashProxyResp) {
+	@State private var columnCount: Int = 3
+	@State private var isUpdatingSelect = false
+	@State private var selectable = false
+	@State private var isTesting = false
+	
+	var body: some View {
+		ScrollView {
+			Section {
+				proxyListView
+			} header: {
+				proxyInfoView
+			}
+			.padding()
+		}
 		
-		self._columnCount = columnCount
-		self.proxyGroup = proxyGroup
-		self.proxyInfo = proxyInfo
-		self.currentProxy = proxyGroup.now ?? ""
-		self.selectable = [.select, .fallback].contains(proxyGroup.type)
-
-		self.proxyItems = proxyGroup.all?.compactMap { name in
-			proxyInfo.proxiesMap[name]
-		}.map(ProxyItemData.init) ?? []
+		.background {
+			GeometryReader { geometry in
+				Rectangle()
+					.fill(.clear)
+					.frame(height: 1)
+					.onChange(of: geometry.size.width) { newValue in
+						updateColumnCount(newValue)
+					}
+					.onAppear {
+						updateColumnCount(geometry.size.width)
+					}
+			}.padding()
+		}
+		.onAppear {
+			self.selectable = [.select, .fallback].contains(proxyGroup.type)
+		}
 	}
 	
-	
-    var body: some View {
-		Section {
-			proxyListView
-				.background {
-					Rectangle()
-						.frame(width: 2, height: listHeight(columnCount))
-						.foregroundColor(.clear)
-				}
-				.show(isVisible: !isListExpanded)
-			
-		} header: {
-			proxyInfoView
+	func updateColumnCount(_ width: Double) {
+		let v = Int(Int(width) / 180)
+		let new = v == 0 ? 1 : v
+		
+		if new != columnCount {
+			columnCount = new
 		}
-    }
+	}
+	
 	
 	var proxyInfoView: some View {
 		HStack() {
 			Text(proxyGroup.name)
-				.font(.title)
-				.fontWeight(.medium)
+				.font(.system(size: 17))
 			Text(proxyGroup.type.rawValue)
-			Text("\(proxyGroup.all?.count ?? 0)")
-			Button() {
-				isListExpanded = !isListExpanded
-			} label: {
-				Image(systemName: isListExpanded ? "chevron.up" : "chevron.down")
-			}
+				.font(.system(size: 13))
+				.foregroundColor(.secondary)
+			Text("\(proxyGroup.proxies.count)")
+				.font(.system(size: 11))
+				.padding(EdgeInsets(top: 2, leading: 4, bottom: 2, trailing: 4))
+				.background(Color.gray.opacity(0.5))
+				.cornerRadius(4)
+			
+			Spacer()
 			
 			Button() {
 				startBenchmark()
 			} label: {
-				Image(systemName: "bolt.fill")
+				HStack {
+					if isTesting {
+						ProgressView()
+							.controlSize(.small)
+							.frame(width: 12)
+					} else {
+						Image(systemName: "bolt.fill")
+							.frame(width: 12)
+					}
+					Text(isTesting ? "Testing" : (proxyGroup.type == .urltest ? "Retest" : "Benchmark"))
+						.frame(width: 70)
+				}
+				.foregroundColor(isTesting ? .gray : .blue)
 			}
 			.disabled(isTesting)
 		}
@@ -78,46 +93,44 @@ struct ProxyGroupView: View {
 	var proxyListView: some View {
 		LazyVGrid(columns: Array(repeating: GridItem(.flexible()),
 								 count: columnCount)) {
-			ForEach($proxyItems, id: \.id) { item in
+			ForEach($proxyGroup.proxies, id: \.id) { proxy in
 				ProxyItemView(
-					proxy: item,
+					proxy: proxy,
 					selectable: selectable
 				)
-				.background(currentProxy == item.wrappedValue.name ? Color.teal : Color.white)
+				.background(proxyGroup.now == proxy.wrappedValue.name ? Color.teal : Color.white)
 				.cornerRadius(8)
 				.onTapGesture {
-					let item = item.wrappedValue
+					let item = proxy.wrappedValue
 					updateSelect(item.name)
 				}
 				.show(isVisible: {
 					if searchString.string.isEmpty {
 						return true
 					} else {
-						return item.wrappedValue.name.lowercased().contains(searchString.string.lowercased())
+						return proxy.wrappedValue.name.lowercased().contains(searchString.string.lowercased())
 					}
 				}())
 			}
 		}
 	}
-	
-	func listHeight(_ columnCount: Int) -> Double {
-		let lineCount = ceil(Double(proxyItems.count) / Double(columnCount))
-		return lineCount * 60 + (lineCount - 1) * 8
-	}
-	
 
 	func startBenchmark() {
 		isTesting = true
 		ApiRequest.getGroupDelay(groupName: proxyGroup.name) { delays in
-			proxyGroup.all?.forEach { proxyName in
+			proxyGroup.proxies.enumerated().forEach {
 				var delay = 0
-				if let d = delays[proxyName], d != 0 {
+				if let d = delays[$0.element.name], d != 0 {
 					delay = d
 				}
+				guard $0.offset < proxyGroup.proxies.count,
+					  proxyGroup.proxies[$0.offset].name == $0.element.name
+				else { return }
+				proxyGroup.proxies[$0.offset].delay = delay
 				
-				proxyItems.first {
-					$0.name == proxyName
-				}?.delay = delay
+				if proxyGroup.currentProxy?.name == $0.element.name {
+					proxyGroup.currentProxy = proxyGroup.proxies[$0.offset]
+				}
 			}
 			isTesting = false
 		}
@@ -129,7 +142,7 @@ struct ProxyGroupView: View {
 		ApiRequest.updateProxyGroup(group: proxyGroup.name, selectProxy: name) { success in
 			isUpdatingSelect = false
 			guard success else { return }
-			currentProxy = name
+			proxyGroup.now = name
 		}
 	}
 	
