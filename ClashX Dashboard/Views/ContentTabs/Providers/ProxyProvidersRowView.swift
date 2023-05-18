@@ -9,8 +9,19 @@ import SwiftUI
 struct ProxyProvidersRowView: View {
 	
 	@ObservedObject var providerStorage: DBProviderStorage
+	@EnvironmentObject var searchString: ProxiesSearchString
 	
 	@State private var isUpdating = false
+	
+	var providers: [DBProxyProvider] {
+		if searchString.string.isEmpty {
+			return providerStorage.proxyProviders
+		} else {
+			return providerStorage.proxyProviders.filter {
+				$0.name.lowercased().contains(searchString.string.lowercased())
+			}
+		}
+	}
 	
     var body: some View {
 		NavigationLink {
@@ -53,7 +64,7 @@ struct ProxyProvidersRowView: View {
 	}
 	
 	var listView: some View {
-		ForEach(providerStorage.proxyProviders, id: \.id) {
+		ForEach(providers, id: \.id) {
 			ProxyProviderInfoView(provider: $0)
 		}
 	}

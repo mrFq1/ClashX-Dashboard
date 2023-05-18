@@ -18,6 +18,16 @@ struct ProxyGroupView: View {
 	@State private var selectable = false
 	@State private var isTesting = false
 	
+	var proxies: [DBProxy] {
+		if searchString.string.isEmpty {
+			return proxyGroup.proxies
+		} else {
+			return proxyGroup.proxies.filter {
+				$0.name.lowercased().contains(searchString.string.lowercased())
+			}
+		}
+	}
+	
 	var body: some View {
 		ScrollView {
 			Section {
@@ -96,24 +106,17 @@ struct ProxyGroupView: View {
 	var proxyListView: some View {
 		LazyVGrid(columns: Array(repeating: GridItem(.flexible()),
 								 count: columnCount)) {
-			ForEach($proxyGroup.proxies, id: \.id) { proxy in
+			ForEach(proxies, id: \.id) { proxy in
 				ProxyItemView(
 					proxy: proxy,
 					selectable: selectable
 				)
-				.background(proxyGroup.now == proxy.wrappedValue.name ? Color.teal : Color.white)
+				.background(proxyGroup.now == proxy.name ? Color.teal : Color.white)
 				.cornerRadius(8)
 				.onTapGesture {
-					let item = proxy.wrappedValue
+					let item = proxy
 					updateSelect(item.name)
 				}
-				.show(isVisible: {
-					if searchString.string.isEmpty {
-						return true
-					} else {
-						return proxy.wrappedValue.name.lowercased().contains(searchString.string.lowercased())
-					}
-				}())
 			}
 		}
 	}

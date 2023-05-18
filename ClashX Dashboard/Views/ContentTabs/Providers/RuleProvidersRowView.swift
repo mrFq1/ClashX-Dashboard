@@ -9,8 +9,19 @@ import SwiftUI
 struct RuleProvidersRowView: View {
 	
 	@ObservedObject var providerStorage: DBProviderStorage
+	@EnvironmentObject var searchString: ProxiesSearchString
 	
 	@State private var isUpdating = false
+	
+	var providers: [DBRuleProvider] {
+		if searchString.string.isEmpty {
+			return providerStorage.ruleProviders
+		} else {
+			return providerStorage.ruleProviders.filter {
+				$0.name.lowercased().contains(searchString.string.lowercased())
+			}
+		}
+	}
 	
     var body: some View {
 		NavigationLink {
@@ -26,7 +37,7 @@ struct RuleProvidersRowView: View {
 		ScrollView {
 			Section {
 				VStack(spacing: 12) {
-					ForEach(providerStorage.ruleProviders, id: \.id) {
+					ForEach(providers, id: \.id) {
 						RuleProviderView(provider: $0)
 					}
 				}

@@ -16,6 +16,16 @@ struct ProviderProxiesView: View {
 	@State private var isTesting = false
 	@State private var isUpdating = false
 	
+	var proxies: [DBProxy] {
+		if searchString.string.isEmpty {
+			return provider.proxies
+		} else {
+			return provider.proxies.filter {
+				$0.name.lowercased().contains(searchString.string.lowercased())
+			}
+		}
+	}
+	
     var body: some View {
 		ScrollView {
 			Section {
@@ -55,21 +65,13 @@ struct ProviderProxiesView: View {
 	var proxyListView: some View {
 		LazyVGrid(columns: Array(repeating: GridItem(.flexible()),
 								 count: columnCount)) {
-			ForEach($provider.proxies, id: \.id) { proxy in
+			ForEach(proxies, id: \.id) { proxy in
 				ProxyItemView(
 					proxy: proxy,
 					selectable: false
 				)
 				.background(.white)
 				.cornerRadius(8)
-
-				.show(isVisible: {
-					if searchString.string.isEmpty {
-						return true
-					} else {
-						return proxy.wrappedValue.name.lowercased().contains(searchString.string.lowercased())
-					}
-				}())
 			}
 		}
 	}

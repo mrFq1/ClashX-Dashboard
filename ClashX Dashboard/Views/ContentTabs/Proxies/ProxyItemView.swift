@@ -8,16 +8,16 @@ import SwiftUI
 
 struct ProxyItemView: View {
 	
-	@Binding var proxy: DBProxy
+	@ObservedObject var proxy: DBProxy
 	@State var selectable: Bool
 	
 	@EnvironmentObject var hideProxyNames: HideProxyNames
 	
-	init(proxy: Binding<DBProxy>, selectable: Bool) {
-		self._proxy = proxy
+	init(proxy: DBProxy, selectable: Bool) {
+		self.proxy = proxy
 		self.selectable = selectable
 		
-		self.isBuiltInProxy = [.pass, .direct, .reject].contains(proxy.wrappedValue.type)
+		self.isBuiltInProxy = [.pass, .direct, .reject].contains(proxy.type)
 	}
 	
 	@State private var isBuiltInProxy: Bool
