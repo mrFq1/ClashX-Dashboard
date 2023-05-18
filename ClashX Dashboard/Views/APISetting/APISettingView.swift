@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct APISettingView: View {
 	@State var baseURL: String = ""
@@ -60,6 +61,10 @@ struct APISettingView: View {
 						$0.id == server.id
 					}
 				}
+			}
+			.introspectTableView {
+				$0.backgroundColor = NSColor.clear
+				$0.enclosingScrollView?.drawsBackground = false
 			}
 		}
 		.padding(.top)

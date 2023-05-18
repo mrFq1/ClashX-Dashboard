@@ -14,7 +14,6 @@
 		015278082A15F9FD00516236 /* ProxyProviderInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015278072A15F9FD00516236 /* ProxyProviderInfoView.swift */; };
 		0155D39629F2342F00869830 /* TrafficGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0155D39529F2342F00869830 /* TrafficGraphView.swift */; };
 		0155D39829F23BDE00869830 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0155D39729F23BDE00869830 /* OverviewView.swift */; };
-		0172CB4F29E562960072DDEF /* ClearBackgroundList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172CB4E29E562960072DDEF /* ClearBackgroundList.swift */; };
 		0172CB5129E5AE670072DDEF /* SwiftUIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0172CB5029E5AE670072DDEF /* SwiftUIViewExtensions.swift */; };
 		017753C029EF7FB2006999DB /* APIServerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017753BF29EF7FB1006999DB /* APIServerItem.swift */; };
 		017DCADD29E83BFD00B9622A /* RuleProviderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017DCADC29E83BFD00B9622A /* RuleProviderView.swift */; };
@@ -74,7 +73,6 @@
 		015278072A15F9FD00516236 /* ProxyProviderInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyProviderInfoView.swift; sourceTree = "<group>"; };
 		0155D39529F2342F00869830 /* TrafficGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficGraphView.swift; sourceTree = "<group>"; };
 		0155D39729F23BDE00869830 /* OverviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
-		0172CB4E29E562960072DDEF /* ClearBackgroundList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBackgroundList.swift; sourceTree = "<group>"; };
 		0172CB5029E5AE670072DDEF /* SwiftUIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewExtensions.swift; sourceTree = "<group>"; };
 		017753BF29EF7FB1006999DB /* APIServerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServerItem.swift; sourceTree = "<group>"; };
 		017DCADC29E83BFD00B9622A /* RuleProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleProviderView.swift; sourceTree = "<group>"; };
@@ -179,7 +177,6 @@
 				010F693929ED638B00BAAFB5 /* APISetting */,
 				0192318129DD709500539EDD /* SidebarView */,
 				0192317429DD5D7400539EDD /* ContentTabs */,
-				0172CB4E29E562960072DDEF /* ClearBackgroundList.swift */,
 				019D6A8629F015DF00A6AC02 /* ArrayExtensions.swift */,
 				0172CB5029E5AE670072DDEF /* SwiftUIViewExtensions.swift */,
 			);
@@ -455,7 +452,6 @@
 				0192316129DD4DCF00539EDD /* ContentView.swift in Sources */,
 				01DCEFB32A150FB300DBBDB3 /* ProxyProvidersRowView.swift in Sources */,
 				0192318729DD83FF00539EDD /* OverviewTopItemView.swift in Sources */,
-				0172CB4F29E562960072DDEF /* ClearBackgroundList.swift in Sources */,
 				0192318029DD5E0B00539EDD /* LogsView.swift in Sources */,
 				01505C4E2A14AAEB001ACC4F /* ProviderProxiesView.swift in Sources */,
 				0192318529DD7DCD00539EDD /* SidebarItemView.swift in Sources */,
