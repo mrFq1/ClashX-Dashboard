@@ -24,6 +24,10 @@ struct SidebarView: View {
 					icon: "globe.asia.australia",
 					view: AnyView(ProxiesView())),
 		
+		SidebarItem(name: "Providers",
+					icon: "link.icloud",
+					view: AnyView(ProvidersView())),
+		
 		SidebarItem(name: "Rules",
 					icon: "waveform.and.magnifyingglass",
 					view: AnyView(RulesView())),

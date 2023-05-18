@@ -27,7 +27,6 @@ struct ProxyGroupView: View {
 			}
 			.padding()
 		}
-		
 		.background {
 			GeometryReader { geometry in
 				Rectangle()

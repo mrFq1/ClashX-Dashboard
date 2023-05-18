@@ -8,25 +8,29 @@ import SwiftUI
 
 struct RuleProviderView: View {
 	
-	@State var ruleProvider: ClashRuleProvider
+	@State var provider: DBRuleProvider
 	
     var body: some View {
         
 		VStack(alignment: .leading) {
 			HStack {
-				Text(ruleProvider.name)
+				Text(provider.name)
 					.font(.title)
 					.fontWeight(.medium)
-				Text(ruleProvider.type)
-				Text(ruleProvider.behavior)
+				Text(provider.type)
+				Text(provider.behavior)
+				Spacer()
 			}
 			
 			HStack {
-				Text("\(ruleProvider.ruleCount) rules")
-				if let date = ruleProvider.updatedAt {
+				Text("\(provider.ruleCount) rules")
+				if let date = provider.updatedAt {
 					Text("Updated \(RelativeDateTimeFormatter().localizedString(for: date, relativeTo: .now))")
 				}
+				Spacer()
 			}
+			.font(.system(size: 12))
+			.foregroundColor(.secondary)
 		}
     }
 }
