@@ -76,48 +76,33 @@ struct ProviderProxiesView: View {
 		}
 	}
 	
-
-	
 	var buttonsView: some View {
 		VStack {
-			Button() {
-				startHealthCheck()
-			} label: {
-				HStack {
-					if isTesting {
-						ProgressView()
-							.controlSize(.small)
-							.frame(width: 12)
-					} else {
-						Image(systemName: "bolt.fill")
-							.frame(width: 12)
-					}
-					Text(isTesting ? "Testing" : "Health Check")
-						.frame(width: 90)
+			ProgressButton(
+				title: "Health Check",
+				title2: "Testing",
+				iconName: "bolt.fill",
+				inProgress: $isTesting,
+				autoWidth: false) {
+					startHealthCheck()
 				}
-				.foregroundColor(isTesting ? .gray : .blue)
-			}
-			.disabled(isTesting)
 			
-			Button() {
-				startUpdate()
-			} label: {
-				HStack {
-					if isUpdating {
-						ProgressView()
-							.controlSize(.small)
-							.frame(width: 12)
-					} else {
-						Image(systemName: "arrow.clockwise")
-							.frame(width: 12)
-					}
-					Text(isUpdating ? "Updating" : "Update")
-						.frame(width: 90)
+			ProgressButton(
+				title: "Update",
+				title2: "Updating",
+				iconName: "arrow.clockwise",
+				inProgress: $isUpdating,
+				autoWidth: false) {
+					startUpdate()
 				}
-				.foregroundColor(isUpdating ? .gray : .blue)
-			}
-			.disabled(isTesting)
 		}
+		.frame(width: ProgressButton.width(
+			[
+			"Health Check",
+			"Testing",
+			"Update",
+			"Updating"]
+		))
 	}
 	
 	func startHealthCheck() {

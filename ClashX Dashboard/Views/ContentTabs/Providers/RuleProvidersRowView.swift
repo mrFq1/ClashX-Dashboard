@@ -42,24 +42,13 @@ struct RuleProvidersRowView: View {
 					}
 				}
 			} header: {
-				Button {
-					updateAll()
-				} label: {
-					HStack {
-						if isUpdating {
-							ProgressView()
-								.controlSize(.small)
-								.frame(width: 12)
-						} else {
-							Image(systemName: "arrow.clockwise")
-								.frame(width: 12)
-						}
-						Text(isUpdating ? "Updating" : "Update All")
-							.frame(width: 80)
+				ProgressButton(
+					title: "Update All",
+					title2: "Updating",
+					iconName: "arrow.clockwise",
+					inProgress: $isUpdating) {
+						updateAll()	
 					}
-					.foregroundColor(isUpdating ? .gray : .blue)
-				}
-				.disabled(isUpdating)
 			}
 			.padding()
 		}

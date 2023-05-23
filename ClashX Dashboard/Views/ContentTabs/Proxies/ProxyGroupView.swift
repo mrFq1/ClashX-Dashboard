@@ -82,24 +82,13 @@ struct ProxyGroupView: View {
 			
 			Spacer()
 			
-			Button() {
-				startBenchmark()
-			} label: {
-				HStack {
-					if isTesting {
-						ProgressView()
-							.controlSize(.small)
-							.frame(width: 12)
-					} else {
-						Image(systemName: "bolt.fill")
-							.frame(width: 12)
-					}
-					Text(isTesting ? "Testing" : (proxyGroup.type == .urltest ? "Retest" : "Benchmark"))
-						.frame(width: 70)
+			ProgressButton(
+				title: proxyGroup.type == .urltest ? "Retest" : "Benchmark",
+				title2: "Testing",
+				iconName: "bolt.fill",
+				inProgress: $isTesting) {
+					startBenchmark()
 				}
-				.foregroundColor(isTesting ? .gray : .blue)
-			}
-			.disabled(isTesting)
 		}
 	}
 	

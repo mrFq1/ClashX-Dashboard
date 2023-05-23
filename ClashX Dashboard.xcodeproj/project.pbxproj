@@ -21,6 +21,7 @@
 		017F9AAC2A0E0B2300B81497 /* ProxyGroupRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017F9AAB2A0E0B2300B81497 /* ProxyGroupRowView.swift */; };
 		018003B12A136DDB0070226E /* ProvidersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018003B02A136DDB0070226E /* ProvidersView.swift */; };
 		018A61BD29E9A2ED008608C0 /* APISettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A61BC29E9A2ED008608C0 /* APISettingView.swift */; };
+		018AFEA52A1B5F7A0076E66B /* ProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018AFEA42A1B5F7A0076E66B /* ProgressButton.swift */; };
 		018C836C29E17505006366D3 /* ClashApiDatasStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018C836B29E17505006366D3 /* ClashApiDatasStorage.swift */; };
 		0192315F29DD4DCF00539EDD /* ClashX_DashboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192315E29DD4DCF00539EDD /* ClashX_DashboardApp.swift */; };
 		0192316129DD4DCF00539EDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192316029DD4DCF00539EDD /* ContentView.swift */; };
@@ -79,6 +80,7 @@
 		017F9AAB2A0E0B2300B81497 /* ProxyGroupRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyGroupRowView.swift; sourceTree = "<group>"; };
 		018003B02A136DDB0070226E /* ProvidersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvidersView.swift; sourceTree = "<group>"; };
 		018A61BC29E9A2ED008608C0 /* APISettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISettingView.swift; sourceTree = "<group>"; };
+		018AFEA42A1B5F7A0076E66B /* ProgressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressButton.swift; sourceTree = "<group>"; };
 		018C836B29E17505006366D3 /* ClashApiDatasStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashApiDatasStorage.swift; sourceTree = "<group>"; };
 		0192315B29DD4DCF00539EDD /* ClashX Dashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ClashX Dashboard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0192315E29DD4DCF00539EDD /* ClashX_DashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashX_DashboardApp.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				018A61BC29E9A2ED008608C0 /* APISettingView.swift */,
+				018AFEA42A1B5F7A0076E66B /* ProgressButton.swift */,
 				017753BF29EF7FB1006999DB /* APIServerItem.swift */,
 				010F693A29ED639A00BAAFB5 /* ClashServerAppStorage.swift */,
 			);
@@ -487,6 +490,7 @@
 				0192B5F629DE5262002CDBF3 /* ConfigManager.swift in Sources */,
 				0192B61A29DE5292002CDBF3 /* DateFormatter+.swift in Sources */,
 				01F885CF29DFD8DF008241EB /* CollectionsTableView.swift in Sources */,
+				018AFEA52A1B5F7A0076E66B /* ProgressButton.swift in Sources */,
 				01505C4A2A147B84001ACC4F /* DBProviderStorage.swift in Sources */,
 				0192B5CA29DE5151002CDBF3 /* ClashConfig.swift in Sources */,
 				0172CB5129E5AE670072DDEF /* SwiftUIViewExtensions.swift in Sources */,
