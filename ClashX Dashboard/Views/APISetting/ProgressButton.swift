@@ -7,16 +7,6 @@
 import SwiftUI
 import AppKit
 
-//class ProgressButtonSize: NSObject {
-//	static func width(_ titles: [String]) -> CGFloat {
-//
-//		let str = titles.max() ?? ""
-//		let w = str.size(withAttributes: [.font: Font.system(size: 13)]).width
-//
-//		return w + 12 + 8*3
-//	}
-//}
-
 struct ProgressButton: View {
 	
 	@State var title: String
