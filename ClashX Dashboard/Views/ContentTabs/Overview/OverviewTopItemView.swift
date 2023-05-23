@@ -24,7 +24,7 @@ struct OverviewTopItemView: View {
 		}
 		.frame(width: 125)
 		.padding(EdgeInsets(top: 10, leading: 13, bottom: 10, trailing: 13))
-		.background(.white)
+		.background(Color(nsColor: .textBackgroundColor))
 		.cornerRadius(10)
     }
 }

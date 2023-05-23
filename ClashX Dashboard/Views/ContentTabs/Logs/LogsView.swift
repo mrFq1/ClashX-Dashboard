@@ -44,7 +44,6 @@ struct LogsView: View {
 			.width(min: 40, max: 65)
 			TableColumn("", value: \.log)
 		}
-		.background(.white)
 		.searchable(text: $searchString)
     }
 }

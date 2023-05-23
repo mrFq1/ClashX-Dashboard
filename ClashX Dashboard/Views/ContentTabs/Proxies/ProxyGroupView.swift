@@ -100,7 +100,7 @@ struct ProxyGroupView: View {
 					proxy: proxy,
 					selectable: selectable
 				)
-				.background(proxyGroup.now == proxy.name ? Color.teal : Color.white)
+				.background(proxyGroup.now == proxy.name ? Color.pink.opacity(0.3) : Color(nsColor: .textBackgroundColor))
 				.cornerRadius(8)
 				.onTapGesture {
 					let item = proxy

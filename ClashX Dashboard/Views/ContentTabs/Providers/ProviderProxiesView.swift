@@ -70,7 +70,7 @@ struct ProviderProxiesView: View {
 					proxy: proxy,
 					selectable: false
 				)
-				.background(.white)
+				.background(Color(nsColor: .textBackgroundColor))
 				.cornerRadius(8)
 			}
 		}
