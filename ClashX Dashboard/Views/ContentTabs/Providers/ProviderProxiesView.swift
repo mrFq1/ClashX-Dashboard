@@ -126,12 +126,7 @@ struct ProviderProxiesView: View {
 	func updateProvider(_ completeHandler: (() -> Void)? = nil) {
 		ApiRequest.requestProxyProviderList { resp in
 			if let p = resp.allProviders[provider.name] {
-				let new = DBProxyProvider(provider: p)
-				provider.proxies = new.proxies
-				provider.updatedAt = new.updatedAt
-				provider.expireDate = new.expireDate
-				provider.trafficInfo = new.trafficInfo
-				provider.trafficPercentage = new.trafficPercentage
+				provider.updateInfo(DBProxyProvider(provider: p))
 			}
 			completeHandler?()
 		}

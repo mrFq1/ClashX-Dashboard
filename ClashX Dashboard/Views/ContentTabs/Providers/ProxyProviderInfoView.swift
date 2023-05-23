@@ -11,11 +11,25 @@ struct ProxyProviderInfoView: View {
 	@ObservedObject var provider: DBProxyProvider
 	@EnvironmentObject var hideProxyNames: HideProxyNames
 	
+	@State var withUpdateButton = false
+	@State var isUpdating = false
+	
     var body: some View {
-		VStack {
-			header
-			content
+		HStack {
+			VStack {
+				header
+				content
+			}
 			
+			if withUpdateButton {
+				ProgressButton(
+					title: "",
+					title2: "",
+					iconName: "arrow.clockwise",
+					inProgress: $isUpdating) {
+						update()
+					}
+			}
 		}
     }
 	
@@ -52,6 +66,19 @@ struct ProxyProviderInfoView: View {
 		}
 		.font(.system(size: 12))
 		.foregroundColor(.secondary)
+	}
+	
+	func update() {
+		isUpdating = true
+		let name = provider.name
+		ApiRequest.updateProvider(for: .proxy, name: name) { _ in
+			ApiRequest.requestProxyProviderList() { resp in
+				if let p = resp.allProviders[provider.name] {
+					provider.updateInfo(DBProxyProvider(provider: p))
+				}
+				isUpdating = false
+			}
+		}
 	}
 }
 

@@ -52,8 +52,8 @@ struct ProxyProvidersRowView: View {
 	}
 	
 	var listView: some View {
-		ForEach(providers, id: \.id) {
-			ProxyProviderInfoView(provider: $0)
+		ForEach(providers, id: \.id) { provider in
+			ProxyProviderInfoView(provider: provider, withUpdateButton: true)
 		}
 	}
 	

@@ -69,6 +69,14 @@ class DBProxyProvider: ObservableObject, Identifiable {
 			self.updatedAt = ""
 		}
 	}
+	
+	func updateInfo(_ new: DBProxyProvider) {
+		proxies = new.proxies
+		updatedAt = new.updatedAt
+		expireDate = new.expireDate
+		trafficInfo = new.trafficInfo
+		trafficPercentage = new.trafficPercentage
+	}
 }
 
 class DBRuleProvider: ObservableObject, Identifiable {

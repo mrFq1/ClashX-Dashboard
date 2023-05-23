@@ -43,12 +43,14 @@ struct ProgressButton: View {
 				}
 				.frame(width: 12)
 
-				Spacer()
-				
-				Text(inProgress ? title2 : title)
-					.font(.system(size: 13))
-				
-				Spacer()
+				if title != "" {
+					Spacer()
+					
+					Text(inProgress ? title2 : title)
+						.font(.system(size: 13))
+					
+					Spacer()
+				}
 			}
 			.animation(.default, value: inProgress)
 			.foregroundColor(inProgress ? .gray : .blue)
@@ -61,6 +63,11 @@ struct ProgressButton: View {
 		let str = titles.max {
 			$0.count < $1.count
 		} ?? ""
+		
+		if str == "" {
+			return 12 + 8
+		}
+		
 		let w = str.size(withAttributes: [.font: NSFont.systemFont(ofSize: 13)]).width
 		return w + 12 + 45
 	}
