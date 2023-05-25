@@ -148,5 +148,5 @@ class ClashLogStorage: ObservableObject {
 }
 
 class ClashConnsStorage: ObservableObject {
-	@Published var conns = [ClashConnection]()
+	@Published var conns = [DBConnection]()
 }

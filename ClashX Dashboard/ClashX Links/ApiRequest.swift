@@ -284,24 +284,24 @@ class ApiRequest {
 // MARK: - Connections
 
 extension ApiRequest {
-    static func getConnections(completeHandler: @escaping (ClashConnectionSnapShot) -> Void) {
+    static func getConnections(completeHandler: @escaping (DBConnectionSnapShot) -> Void) {
 		
 		let decoder = JSONDecoder()
 		decoder.dateDecodingStrategy = .formatted(DateFormatter.js)
 		
-		req("/connections").responseDecodable(of: ClashConnectionSnapShot.self, decoder: decoder) { resp in
+		req("/connections").responseDecodable(of: DBConnectionSnapShot.self, decoder: decoder) { resp in
             switch resp.result {
             case let .success(snapshot):
                 completeHandler(snapshot)
             case .failure:
 				return
 //                assertionFailure()
-//                completeHandler(ClashConnectionSnapShot())
+//                completeHandler(DBConnectionSnapShot())
             }
         }
     }
 
-    static func closeConnection(_ conn: ClashConnection) {
+	static func closeConnection(_ conn: ClashConnectionSnapShot.Connection) {
         req("/connections/".appending(conn.id), method: .delete).response { _ in }
     }
 

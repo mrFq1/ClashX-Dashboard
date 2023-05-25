@@ -72,27 +72,27 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 			
 			switch $0 {
 			case .host:
-				sort = .init(keyPath: \ClashConnectionObject.host, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.host, ascending: true)
 			case .sniffHost:
-				sort = .init(keyPath: \ClashConnectionObject.sniffHost, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.sniffHost, ascending: true)
 			case .process:
-				sort = .init(keyPath: \ClashConnectionObject.process, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.process, ascending: true)
 			case .dl:
-				sort = .init(keyPath: \ClashConnectionObject.download, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.download, ascending: true)
 			case .ul:
-				sort = .init(keyPath: \ClashConnectionObject.upload, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.upload, ascending: true)
 			case .chain:
-				sort = .init(keyPath: \ClashConnectionObject.chainString, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.chainString, ascending: true)
 			case .rule:
-				sort = .init(keyPath: \ClashConnectionObject.ruleString, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.ruleString, ascending: true)
 			case .time:
-				sort = .init(keyPath: \ClashConnectionObject.startDate, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.startDate, ascending: true)
 			case .source:
-				sort = .init(keyPath: \ClashConnectionObject.source, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.source, ascending: true)
 			case .destinationIP:
-				sort = .init(keyPath: \ClashConnectionObject.destinationIP, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.destinationIP, ascending: true)
 			case .type:
-				sort = .init(keyPath: \ClashConnectionObject.type, ascending: true)
+				sort = .init(keyPath: \DBConnectionObject.type, ascending: true)
 			default:
 				sort = nil
 			}
@@ -114,11 +114,11 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 	func updateNSView(_ nsView: NSScrollView, context: Context) {
 		context.coordinator.parent = self
 		guard let tableView = nsView.documentView as? NSTableView,
-			  let data = data as? [ClashConnection] else {
+			  let data = data as? [DBConnection] else {
 			return
 		}
 		
-		let target = updateSorts(data.map(ClashConnectionObject.init), tableView: tableView)
+		let target = updateSorts(data.map(DBConnectionObject.init), tableView: tableView)
 		
 		let source = context.coordinator.conns
 		let changeset = StagedChangeset(source: source, target: target)
@@ -129,12 +129,12 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 		}
 	}
 	
-	func updateSorts(_ objects: [ClashConnectionObject],
-					 tableView: NSTableView) -> [ClashConnectionObject] {
+	func updateSorts(_ objects: [DBConnectionObject],
+					 tableView: NSTableView) -> [DBConnectionObject] {
 		var re = objects
 		
 		var sortDescriptors = tableView.sortDescriptors
-		sortDescriptors.append(.init(keyPath: \ClashConnectionObject.id, ascending: true))
+		sortDescriptors.append(.init(keyPath: \DBConnectionObject.id, ascending: true))
 		re = re.sorted(descriptors: sortDescriptors)
 		
 		let filterKeys = [
@@ -161,7 +161,7 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 
 		var parent: CollectionsTableView
 		
-		var conns = [ClashConnectionObject]()
+		var conns = [DBConnectionObject]()
 
 		init(parent: CollectionsTableView) {
 			self.parent = parent
