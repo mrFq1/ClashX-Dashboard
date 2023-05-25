@@ -60,6 +60,7 @@
 		01CD0A9229E93ABB00F4C17E /* DifferenceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 01CD0A9129E93ABB00F4C17E /* DifferenceKit */; };
 		01DCEFB12A150E8B00DBBDB3 /* RuleProvidersRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DCEFB02A150E8B00DBBDB3 /* RuleProvidersRowView.swift */; };
 		01DCEFB32A150FB300DBBDB3 /* ProxyProvidersRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DCEFB22A150FB300DBBDB3 /* ProxyProvidersRowView.swift */; };
+		01F5E3F42A1E53F4008F3DEB /* ConfigItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5E3F32A1E53F4008F3DEB /* ConfigItemView.swift */; };
 		01F885CF29DFD8DF008241EB /* CollectionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F885CE29DFD8DF008241EB /* CollectionsTableView.swift */; };
 		01F885D129E03F20008241EB /* CollectionTableCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F885D029E03F20008241EB /* CollectionTableCellView.xib */; };
 		01F885D329E04E21008241EB /* ProxyGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F885D229E04E21008241EB /* ProxyGroupView.swift */; };
@@ -115,6 +116,7 @@
 		01A3EF032A120103003038B5 /* DBProxyStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBProxyStorage.swift; sourceTree = "<group>"; };
 		01DCEFB02A150E8B00DBBDB3 /* RuleProvidersRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleProvidersRowView.swift; sourceTree = "<group>"; };
 		01DCEFB22A150FB300DBBDB3 /* ProxyProvidersRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyProvidersRowView.swift; sourceTree = "<group>"; };
+		01F5E3F32A1E53F4008F3DEB /* ConfigItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigItemView.swift; sourceTree = "<group>"; };
 		01F885CE29DFD8DF008241EB /* CollectionsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsTableView.swift; sourceTree = "<group>"; };
 		01F885D029E03F20008241EB /* CollectionTableCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionTableCellView.xib; sourceTree = "<group>"; };
 		01F885D229E04E21008241EB /* ProxyGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyGroupView.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				0192317D29DD5E0100539EDD /* ConfigView.swift */,
+				01F5E3F32A1E53F4008F3DEB /* ConfigItemView.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				01F885D529E053DE008241EB /* ProxyItemView.swift in Sources */,
 				0192B5D029DE5151002CDBF3 /* ClashRuleProvider.swift in Sources */,
 				01DCEFB12A150E8B00DBBDB3 /* RuleProvidersRowView.swift in Sources */,
+				01F5E3F42A1E53F4008F3DEB /* ConfigItemView.swift in Sources */,
 				0192317129DD566000539EDD /* SidebarView.swift in Sources */,
 				0192B5D129DE5151002CDBF3 /* ClashRule.swift in Sources */,
 				0192317C29DD5DF200539EDD /* ConnectionsView.swift in Sources */,
