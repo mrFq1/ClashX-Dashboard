@@ -16,7 +16,7 @@ class DBProviderStorage: ObservableObject {
 }
 
 class DBProxyProvider: ObservableObject, Identifiable {
-	let id: String
+	let id = UUID().uuidString
 	
 	@Published var name: ClashProviderName
 	@Published var proxies: [DBProxy]
@@ -29,8 +29,6 @@ class DBProxyProvider: ObservableObject, Identifiable {
 	@Published var updatedAt: String
 	
 	init(provider: ClashProvider) {
-		id = provider.id
-		
 		name = provider.name
 		proxies = provider.proxies.map(DBProxy.init)
 		type = provider.type

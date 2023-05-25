@@ -10,7 +10,7 @@ import SwiftUI
 typealias SavedServersAppStorage = [ClashServerAppStorage]
 
 struct ClashServerAppStorage: Codable, Identifiable {
-	let id = UUID().uuidString
+	var id = UUID().uuidString
 	let apiURL: String
 	let secret: String
 }

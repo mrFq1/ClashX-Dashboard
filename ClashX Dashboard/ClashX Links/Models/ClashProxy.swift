@@ -97,7 +97,7 @@ class ClashProxySpeedHistory: Codable {
 }
 
 class ClashProxy: Codable {
-	let id = UUID().uuidString
+	let id: String?
     let name: ClashProxyName
     let type: ClashProxyType
     let all: [ClashProxyName]?
@@ -145,7 +145,7 @@ class ClashProxy: Codable {
     }()
 
     private enum CodingKeys: String, CodingKey {
-        case type, all, history, now, name, udp, xudp, tfo
+        case type, all, history, now, name, udp, xudp, tfo, id
     }
 
     lazy var maxProxyNameLength: CGFloat = {

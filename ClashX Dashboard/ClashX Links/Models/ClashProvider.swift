@@ -30,7 +30,6 @@ class ClashProviderResp: Codable {
 }
 
 class ClashProvider: Codable {
-	let id = UUID().uuidString
     enum ProviderType: String, Codable {
         case Proxy
         case String

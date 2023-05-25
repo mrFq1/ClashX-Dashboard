@@ -22,7 +22,7 @@ class DBProxyStorage: ObservableObject {
 }
 
 class DBProxyGroup: ObservableObject, Identifiable {
-	let id: String
+	let id = UUID().uuidString
 	@Published var name: ClashProxyName
 	@Published var type: ClashProxyType
 	@Published var now: ClashProxyName? {
@@ -38,7 +38,6 @@ class DBProxyGroup: ObservableObject, Identifiable {
 	@Published var currentProxy: DBProxy?
 	
 	init(_ group: ClashProxy, resp: ClashProxyResp) {
-		id = group.id
 		name = group.name
 		type = group.type
 		now = group.now
@@ -71,7 +70,7 @@ class DBProxy: ObservableObject {
 	@Published var delayColor: Color
 	
 	init(_ proxy: ClashProxy) {
-		id = proxy.id
+		id = proxy.id ?? UUID().uuidString
 		name = proxy.name
 		type = proxy.type
 		tfo = proxy.tfo
