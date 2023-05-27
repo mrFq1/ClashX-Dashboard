@@ -18,10 +18,15 @@ struct ConnectionsView: View {
 							 filterString: searchString)
 			.background(Color(nsColor: .textBackgroundColor))
 			.searchable(text: $searchString)
-
-
-		
-		
+			.toolbar {
+				ToolbarItem {
+					Button {
+						ApiRequest.closeAllConnection()
+					} label: {
+						Image(systemName: "stop.circle.fill")
+					}
+				}
+			}
 	}
 }
 

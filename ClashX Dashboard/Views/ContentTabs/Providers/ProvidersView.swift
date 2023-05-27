@@ -8,8 +8,10 @@ import SwiftUI
 
 struct ProvidersView: View {
 	@ObservedObject var providerStorage = DBProviderStorage()
-	@EnvironmentObject var hideProxyNames: HideProxyNames
+	
 	@State private var searchString = ProxiesSearchString()
+	
+	@StateObject private var hideProxyNames = HideProxyNames()
 	
     var body: some View {
         
@@ -39,6 +41,16 @@ struct ProvidersView: View {
 		.environmentObject(searchString)
 		.onAppear {
 			loadProviders()
+		}
+		.environmentObject(hideProxyNames)
+		.toolbar {
+			ToolbarItem {
+				Button {
+					hideProxyNames.hide = !hideProxyNames.hide
+				} label: {
+					Image(systemName: hideProxyNames.hide ? "eyeglasses" : "wand.and.stars")
+				}
+			}
 		}
     }
 	

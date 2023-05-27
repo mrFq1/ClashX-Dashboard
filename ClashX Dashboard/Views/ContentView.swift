@@ -16,8 +16,6 @@ struct ContentView: View {
 	private let runningState = NotificationCenter.default.publisher(for: .init("ClashRunningStateChanged"))
 	@State private var isRunning = false
 	
-	@StateObject private var hideProxyNames = HideProxyNames()
-	
 	var body: some View {
 		Group {
 			if !isRunning {
@@ -31,7 +29,6 @@ struct ContentView: View {
 				}
 			}
 		}
-		.environmentObject(hideProxyNames)
 		.toolbar {
 			ToolbarItem(placement: .navigation) {
 				Button {
@@ -40,16 +37,6 @@ struct ContentView: View {
 					Image(systemName: "sidebar.left")
 				}
 				.help("Toggle Sidebar")
-				.disabled(!isRunning)
-			}
-			
-			ToolbarItem {
-				Button {
-					hideProxyNames.hide = !hideProxyNames.hide
-				} label: {
-					Image(systemName: hideProxyNames.hide ? "eyeglasses" : "wand.and.stars")
-				}
-				.disabled(!isRunning)
 			}
 		}
 		.onReceive(runningState) { _ in

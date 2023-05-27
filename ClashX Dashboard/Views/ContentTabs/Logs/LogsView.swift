@@ -11,6 +11,7 @@ struct LogsView: View {
 	@EnvironmentObject var logStorage: ClashLogStorage
 	
 	@State var searchString: String = ""
+	@State var logLevel = ConfigManager.selectLoggingApiLevel
 	
 	var logs: [ClashLogStorage.ClashLog] {
 		let logs: [ClashLogStorage.ClashLog] = logStorage.logs.reversed()
@@ -45,6 +46,28 @@ struct LogsView: View {
 			TableColumn("", value: \.log)
 		}
 		.searchable(text: $searchString)
+		.toolbar {
+			ToolbarItem {
+				Picker("", selection: $logLevel) {
+					ForEach([
+						ClashLogLevel.silent,
+						.error,
+						.warning,
+						.info,
+						.debug
+					], id: \.self) {
+						Text($0.rawValue.capitalized).tag($0)
+					}
+				}
+				.pickerStyle(.menu)
+				.onChange(of: logLevel) { newValue in
+					guard newValue != ConfigManager.selectLoggingApiLevel else { return }
+					logStorage.logs.removeAll()
+					ConfigManager.selectLoggingApiLevel = newValue
+					ApiRequest.shared.resetLogStreamApi()
+				}
+			}
+		}
     }
 }
 

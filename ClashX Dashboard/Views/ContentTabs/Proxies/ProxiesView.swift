@@ -19,6 +19,8 @@ struct ProxiesView: View {
 	@State private var searchString = ProxiesSearchString()
 	@State private var isGlobalMode = false
 	
+	@StateObject private var hideProxyNames = HideProxyNames()
+	
     var body: some View {
 		NavigationView {
 			List(proxyStorage.groups, id: \.id) { group in
@@ -35,6 +37,16 @@ struct ProxiesView: View {
 		.environmentObject(searchString)
 		.onAppear {
 			loadProxies()
+		}
+		.environmentObject(hideProxyNames)
+		.toolbar {
+			ToolbarItem {
+				Button {
+					hideProxyNames.hide = !hideProxyNames.hide
+				} label: {
+					Image(systemName: hideProxyNames.hide ? "eyeglasses" : "wand.and.stars")
+				}
+			}
 		}
     }
 	

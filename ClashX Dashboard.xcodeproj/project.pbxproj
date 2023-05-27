@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		010F693B29ED639A00BAAFB5 /* ClashServerAppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010F693A29ED639A00BAAFB5 /* ClashServerAppStorage.swift */; };
+		01359A392A21D88B00A2B3FB /* SidebarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01359A382A21D88B00A2B3FB /* SidebarListView.swift */; };
 		01505C4A2A147B84001ACC4F /* DBProviderStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01505C492A147B84001ACC4F /* DBProviderStorage.swift */; };
 		01505C4C2A14A1A3001ACC4F /* ProviderRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01505C4B2A14A1A3001ACC4F /* ProviderRowView.swift */; };
 		01505C4E2A14AAEB001ACC4F /* ProviderProxiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01505C4D2A14AAEB001ACC4F /* ProviderProxiesView.swift */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		010F693A29ED639A00BAAFB5 /* ClashServerAppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashServerAppStorage.swift; sourceTree = "<group>"; };
+		01359A382A21D88B00A2B3FB /* SidebarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListView.swift; sourceTree = "<group>"; };
 		01505C492A147B84001ACC4F /* DBProviderStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBProviderStorage.swift; sourceTree = "<group>"; };
 		01505C4B2A14A1A3001ACC4F /* ProviderRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderRowView.swift; sourceTree = "<group>"; };
 		01505C4D2A14AAEB001ACC4F /* ProviderProxiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderProxiesView.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				0192317029DD566000539EDD /* SidebarView.swift */,
+				01359A382A21D88B00A2B3FB /* SidebarListView.swift */,
 				0192318429DD7DCD00539EDD /* SidebarItemView.swift */,
 				0192318229DD70B400539EDD /* SidebarItem.swift */,
 			);
@@ -481,6 +484,7 @@
 				01A351A229DD8F440054894E /* RuleItemView.swift in Sources */,
 				01F885D529E053DE008241EB /* ProxyItemView.swift in Sources */,
 				0172F1312A1FB06100EE2B6D /* String+Encode.swift in Sources */,
+				01359A392A21D88B00A2B3FB /* SidebarListView.swift in Sources */,
 				01DCEFB12A150E8B00DBBDB3 /* RuleProvidersRowView.swift in Sources */,
 				01F5E3F42A1E53F4008F3DEB /* ConfigItemView.swift in Sources */,
 				0172F1352A1FB0B900EE2B6D /* ConfigManager.swift in Sources */,
