@@ -15,13 +15,21 @@ struct OverviewView: View {
 	
     var body: some View {
 		VStack(spacing: 25) {
-			HStack() {
+			
+			
+			
+			LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 155)), count: 4)) {
+				
 				OverviewTopItemView(name: "Upload", value: $data.uploadString)
 				OverviewTopItemView(name: "Download", value: $data.downloadString)
 				OverviewTopItemView(name: "Upload Total", value: $data.uploadTotal)
 				OverviewTopItemView(name: "Download Total", value: $data.downloadTotal)
+				
 				OverviewTopItemView(name: "Active Connections", value: $data.activeConns)
+				OverviewTopItemView(name: "Memory Usage", value: $data.memory)
 			}
+
+
 			
 			HStack {
 				RoundedRectangle(cornerRadius: 2)

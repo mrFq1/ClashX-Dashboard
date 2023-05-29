@@ -41,6 +41,15 @@ extension ClashApiDatasStorage: ApiRequestStreamDelegate {
 			}
 		}
 	}
+	
+	func didUpdateMemory(memory: Int64) {
+		let v = ByteCountFormatter().string(fromByteCount: memory)
+		
+		if overviewData.memory != v {
+			overviewData.memory = v
+		}
+	}
+	
 }
 
 fileprivate let TrafficHistoryLimit = 120
@@ -55,6 +64,8 @@ class ClashOverviewData: ObservableObject, Identifiable {
 	@Published var uploadTotal = "N/A"
 	
 	@Published var activeConns = "0"
+	
+	@Published var memory = "0 MB"
 	
 	@Published var downloadHistories = [CGFloat](repeating: 0, count: TrafficHistoryLimit)
 	@Published var uploadHistories = [CGFloat](repeating: 0, count: TrafficHistoryLimit)
