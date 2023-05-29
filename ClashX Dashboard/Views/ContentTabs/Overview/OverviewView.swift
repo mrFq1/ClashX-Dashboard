@@ -11,14 +11,14 @@ struct OverviewView: View {
 	
 	@EnvironmentObject var data: ClashOverviewData
 	
-	
+	@State private var columnCount: Int = 4
 	
     var body: some View {
 		VStack(spacing: 25) {
 			
 			
 			
-			LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 155)), count: 4)) {
+			LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: columnCount)) {
 				
 				OverviewTopItemView(name: "Upload", value: $data.uploadString)
 				OverviewTopItemView(name: "Download", value: $data.downloadString)
@@ -27,6 +27,20 @@ struct OverviewView: View {
 				
 				OverviewTopItemView(name: "Active Connections", value: $data.activeConns)
 				OverviewTopItemView(name: "Memory Usage", value: $data.memory)
+			}
+			
+			.background {
+				GeometryReader { geometry in
+					Rectangle()
+						.fill(.clear)
+						.frame(height: 1)
+						.onChange(of: geometry.size.width) { newValue in
+							updateColumnCount(newValue)
+						}
+						.onAppear {
+							updateColumnCount(geometry.size.width)
+						}
+				}.padding()
 			}
 
 
@@ -52,6 +66,15 @@ struct OverviewView: View {
 
 		}.padding()
     }
+	
+	func updateColumnCount(_ width: Double) {
+		let v = Int(Int(width) / 155)
+		let new = v == 0 ? 1 : v
+		
+		if new != columnCount {
+			columnCount = new
+		}
+	}
 	
 }
 
