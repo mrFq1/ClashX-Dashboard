@@ -16,25 +16,7 @@ struct ProvidersView: View {
     var body: some View {
         
 		NavigationView {
-			List {
-				Section("Providers") {
-					ProxyProvidersRowView(providerStorage: providerStorage)
-					RuleProvidersRowView(providerStorage: providerStorage)
-				}
-			
-				Text("")
-				
-				Section("Proxy Provider") {
-					ForEach(providerStorage.proxyProviders,id: \.id) {
-						ProviderRowView(proxyProvider: $0)
-					}
-				}
-			}
-			.introspectTableView {
-				$0.refusesFirstResponder = true
-				$0.doubleAction = nil
-			}
-			.listStyle(.plain)
+			listView
 			EmptyView()
 		}
 		.searchable(text: $searchString.string)
@@ -53,6 +35,40 @@ struct ProvidersView: View {
 			}
 		}
     }
+	
+	var listView: some View {
+		List {
+			if providerStorage.proxyProviders.isEmpty,
+			   providerStorage.ruleProviders.isEmpty {
+				Text("Empty")
+					.padding()
+			} else {
+				Section("Providers") {
+					if !providerStorage.proxyProviders.isEmpty {
+						ProxyProvidersRowView(providerStorage: providerStorage)
+					}
+					if !providerStorage.ruleProviders.isEmpty {
+						RuleProvidersRowView(providerStorage: providerStorage)
+					}
+				}
+			}
+			
+			if !providerStorage.proxyProviders.isEmpty {
+				Text("")
+				
+				Section("Proxy Provider") {
+					ForEach(providerStorage.proxyProviders,id: \.id) {
+						ProviderRowView(proxyProvider: $0)
+					}
+				}
+			}
+		}
+		.introspectTableView {
+			$0.refusesFirstResponder = true
+			$0.doubleAction = nil
+		}
+		.listStyle(.plain)
+	}
 	
 	func loadProviders() {
 		ApiRequest.requestProxyProviderList { resp in
