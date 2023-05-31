@@ -55,8 +55,6 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 		tableView.delegate = context.coordinator
 		tableView.dataSource = context.coordinator
 		
-		tableView.register(.init(nibNamed: .init("CollectionTableCellView"), bundle: .main), forIdentifier: .init(rawValue: "CollectionTableCellView"))
-		
 		TableColumn.allCases.forEach {
 			let tableColumn = NSTableColumn(identifier: .init($0.rawValue))
 			tableColumn.title = $0.rawValue
@@ -174,14 +172,15 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 
 		
 		func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-			guard let cell = tableView.makeView(withIdentifier: .init(rawValue: "CollectionTableCellView"), owner: nil) as? NSTableCellView,
+			
+			guard let cellView = createCellView(tableView),
 				  let s = tableColumn?.identifier.rawValue.split(separator: ".").last,
 				  let tc = TableColumn(rawValue: String(s))
 			else { return nil }
 			
 			let conn = conns[row]
 			
-			cell.textField?.objectValue = {
+			cellView.textField?.objectValue = {
 				switch tc {
 				case .host:
 					return conn.host
@@ -208,12 +207,58 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 				}
 			}()
 			
-			return cell
+			return cellView
 		}
 		
 		func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
 			conns = parent.updateSorts(conns, tableView: tableView)
 			tableView.reloadData()
+		}
+		
+		func createCellView(_ tableView: NSTableView) -> NSTableCellView? {
+			// https://stackoverflow.com/a/27624927
+			
+			var cellView: NSTableCellView?
+			if let spareView = tableView.makeView(withIdentifier: .init("ConnsTableCellView"),
+				owner: self) as? NSTableCellView {
+
+				// We can use an old cell - no need to do anything.
+				cellView = spareView
+
+			} else {
+
+				// Create a text field for the cell
+				let textField = NSTextField()
+				textField.backgroundColor = NSColor.clear
+				textField.translatesAutoresizingMaskIntoConstraints = false
+				textField.isBordered = false
+				textField.font = .systemFont(ofSize: 13)
+
+				// Create a cell
+				let newCell = NSTableCellView()
+				newCell.identifier = .init("ConnsTableCellView")
+				newCell.addSubview(textField)
+				newCell.textField = textField
+
+				// Constrain the text field within the cell
+				newCell.addConstraints(
+					NSLayoutConstraint.constraints(withVisualFormat: "H:|[textField]|",
+						options: [],
+						metrics: nil,
+						views: ["textField" : textField]))
+
+				newCell.addConstraint(.init(item: textField, attribute: .centerY, relatedBy: .equal, toItem: newCell, attribute: .centerY, multiplier: 1, constant: 0))
+				
+
+				textField.bind(NSBindingName.value,
+							   to: newCell,
+					withKeyPath: "objectValue",
+					options: nil)
+
+				cellView = newCell
+			}
+			
+			return cellView
 		}
 		
 	}
