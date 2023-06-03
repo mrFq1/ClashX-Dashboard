@@ -7,7 +7,7 @@
 import SwiftUI
 import ClashX_Dashboard_Kit
 
-@main
+//@main
 struct ClashX_DashboardApp: App {
     var body: some Scene {
         WindowGroup {
