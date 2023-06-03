@@ -27,6 +27,8 @@ struct SidebarView: View {
 				ConfigManager.selectLoggingApiLevel = .info
 			}
 			
+			sidebarItemChanged(sidebarSelectionName)
+			
 			clashApiDatasStorage.resetStreamApi()
 			connsQueue.sync {
 				clashApiDatasStorage.connsStorage.conns
@@ -35,9 +37,13 @@ struct SidebarView: View {
 			
 			updateConnections()
 		}
+		.onChange(of: sidebarSelectionName) { newValue in
+			sidebarItemChanged(newValue)
+		}
 		.onReceive(timer, perform: { _ in
 			updateConnections()
 		})
+
 	}
 	
 	func updateConnections() {
@@ -49,6 +55,13 @@ struct SidebarView: View {
 				clashApiDatasStorage.connsStorage.conns = snap.connections
 			}
 		}
+	}
+	
+	func sidebarItemChanged(_ name: String?) {
+		guard let str = name,
+			  let item = SidebarItem(rawValue: str) else { return }
+		
+		NotificationCenter.default.post(name: .sidebarItemChanged, object: nil, userInfo: ["item": item])
 	}
 }
 

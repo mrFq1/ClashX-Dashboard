@@ -34,6 +34,14 @@ struct ProxiesView: View {
 			EmptyView()
 		}
 		.searchable(text: $searchString.string)
+		.onReceive(NotificationCenter.default.publisher(for: .toolbarSearchString)) {
+			guard let string = $0.userInfo?["String"] as? String else { return }
+			searchString.string = string
+		}
+		.onReceive(NotificationCenter.default.publisher(for: .hideNames)) {
+			guard let hide = $0.userInfo?["hide"] as? Bool else { return }
+			hideProxyNames.hide = hide
+		}
 		.environmentObject(searchString)
 		.onAppear {
 			loadProxies()

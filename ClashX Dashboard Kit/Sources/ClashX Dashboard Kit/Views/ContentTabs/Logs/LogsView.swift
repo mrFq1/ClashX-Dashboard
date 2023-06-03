@@ -46,6 +46,14 @@ struct LogsView: View {
 			TableColumn("", value: \.log)
 		}
 		.searchable(text: $searchString)
+		.onReceive(NotificationCenter.default.publisher(for: .toolbarSearchString)) {
+			guard let string = $0.userInfo?["String"] as? String else { return }
+			searchString = string
+		}
+		.onReceive(NotificationCenter.default.publisher(for: .logLevelChanged)) {
+			guard let level = $0.userInfo?["level"] as? ClashLogLevel else { return }
+			logLevelChanged(level)
+		}
 		.toolbar {
 			ToolbarItem {
 				Picker("", selection: $logLevel) {
@@ -62,13 +70,17 @@ struct LogsView: View {
 				.pickerStyle(.menu)
 				.onChange(of: logLevel) { newValue in
 					guard newValue != ConfigManager.selectLoggingApiLevel else { return }
-					logStorage.logs.removeAll()
-					ConfigManager.selectLoggingApiLevel = newValue
-					ApiRequest.shared.resetLogStreamApi()
+					logLevelChanged(newValue)
 				}
 			}
 		}
     }
+	
+	func logLevelChanged(_ level: ClashLogLevel) {
+		logStorage.logs.removeAll()
+		ConfigManager.selectLoggingApiLevel = level
+		ApiRequest.shared.resetLogStreamApi()
+	}
 }
 
 struct LogsView_Previews: PreviewProvider {

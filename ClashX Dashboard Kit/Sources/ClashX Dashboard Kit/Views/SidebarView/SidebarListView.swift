@@ -14,45 +14,45 @@ struct SidebarListView: View {
 		List {
 			
 			NavigationLink(destination: OverviewView(),
-						   tag: "Overview",
+						   tag: SidebarItem.overview.rawValue,
 						   selection: $selectionName) {
-				Label("Overview", systemImage: "chart.bar.xaxis")
+				Label(SidebarItem.overview.rawValue, systemImage: "chart.bar.xaxis")
 			}
 			
 			NavigationLink(destination: ProxiesView(),
-						   tag: "Proxies",
+						   tag: SidebarItem.proxies.rawValue,
 						   selection: $selectionName) {
-				Label("Proxies", systemImage: "globe.asia.australia")
+				Label(SidebarItem.proxies.rawValue, systemImage: "globe.asia.australia")
 			}
 			
 			NavigationLink(destination: ProvidersView(),
-						   tag: "Providers",
+						   tag: SidebarItem.providers.rawValue,
 						   selection: $selectionName) {
-				Label("Providers", systemImage: "link.icloud")
+				Label(SidebarItem.providers.rawValue, systemImage: "link.icloud")
 			}
 			
 			NavigationLink(destination: RulesView(),
-						   tag: "Rules",
+						   tag: SidebarItem.rules.rawValue,
 						   selection: $selectionName) {
-				Label("Rules", systemImage: "waveform.and.magnifyingglass")
+				Label(SidebarItem.rules.rawValue, systemImage: "waveform.and.magnifyingglass")
 			}
 			
 			NavigationLink(destination: ConnectionsView(),
-						   tag: "Conns",
+						   tag: SidebarItem.conns.rawValue,
 						   selection: $selectionName) {
-				Label("Conns", systemImage: "app.connected.to.app.below.fill")
+				Label(SidebarItem.conns.rawValue, systemImage: "app.connected.to.app.below.fill")
 			}
 			
 			NavigationLink(destination: ConfigView(),
-						   tag: "Config",
+						   tag: SidebarItem.config.rawValue,
 						   selection: $selectionName) {
-				Label("Config", systemImage: "slider.horizontal.3")
+				Label(SidebarItem.config.rawValue, systemImage: "slider.horizontal.3")
 			}
 			
 			NavigationLink(destination: LogsView(),
-						   tag: "Logs",
+						   tag: SidebarItem.logs.rawValue,
 						   selection: $selectionName) {
-				Label("Logs", systemImage: "wand.and.stars.inverse")
+				Label(SidebarItem.logs.rawValue, systemImage: "wand.and.stars.inverse")
 			}
 			
 			

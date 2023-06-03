@@ -11,7 +11,20 @@ import ClashX_Dashboard_Kit
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 	
+	var dashboardWindowController: DashboardWindowController?
+	
 	func applicationDidFinishLaunching(_ notification: Notification) {
+		
+		if dashboardWindowController == nil {
+			dashboardWindowController = DashboardWindowController.create()
+			dashboardWindowController?.onWindowClose = {
+				[weak self] in
+				self?.dashboardWindowController = nil
+			}
+		}
+		dashboardWindowController?.showWindow(nil)
+		
+		
 		
 	}
 
