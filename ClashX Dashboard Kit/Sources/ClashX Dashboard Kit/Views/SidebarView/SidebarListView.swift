@@ -5,57 +5,65 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct SidebarListView: View {
 	
-	@Binding var selectionName: String?
+	@Binding var selectionName: SidebarItem?
 	
     var body: some View {
 		List {
-			
 			NavigationLink(destination: OverviewView(),
-						   tag: SidebarItem.overview.rawValue,
+						   tag: SidebarItem.overview,
 						   selection: $selectionName) {
 				Label(SidebarItem.overview.rawValue, systemImage: "chart.bar.xaxis")
 			}
 			
 			NavigationLink(destination: ProxiesView(),
-						   tag: SidebarItem.proxies.rawValue,
+						   tag: SidebarItem.proxies,
 						   selection: $selectionName) {
 				Label(SidebarItem.proxies.rawValue, systemImage: "globe.asia.australia")
 			}
 			
 			NavigationLink(destination: ProvidersView(),
-						   tag: SidebarItem.providers.rawValue,
+						   tag: SidebarItem.providers,
 						   selection: $selectionName) {
 				Label(SidebarItem.providers.rawValue, systemImage: "link.icloud")
 			}
 			
 			NavigationLink(destination: RulesView(),
-						   tag: SidebarItem.rules.rawValue,
+						   tag: SidebarItem.rules,
 						   selection: $selectionName) {
 				Label(SidebarItem.rules.rawValue, systemImage: "waveform.and.magnifyingglass")
 			}
 			
 			NavigationLink(destination: ConnectionsView(),
-						   tag: SidebarItem.conns.rawValue,
+						   tag: SidebarItem.conns,
 						   selection: $selectionName) {
 				Label(SidebarItem.conns.rawValue, systemImage: "app.connected.to.app.below.fill")
 			}
 			
 			NavigationLink(destination: ConfigView(),
-						   tag: SidebarItem.config.rawValue,
+						   tag: SidebarItem.config,
 						   selection: $selectionName) {
 				Label(SidebarItem.config.rawValue, systemImage: "slider.horizontal.3")
 			}
 			
 			NavigationLink(destination: LogsView(),
-						   tag: SidebarItem.logs.rawValue,
+						   tag: SidebarItem.logs,
 						   selection: $selectionName) {
 				Label(SidebarItem.logs.rawValue, systemImage: "wand.and.stars.inverse")
 			}
 			
-			
+		}
+		.introspectTableView {
+			if selectionName == nil {
+				selectionName = SidebarItem.overview
+				$0.allowsEmptySelection = false
+				if $0.selectedRow == -1 {
+					$0.selectRowIndexes(.init(integer: 0), byExtendingSelection: false)
+				}
+			}
 		}
 		.listStyle(.sidebar)
     }

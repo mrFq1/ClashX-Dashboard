@@ -13,10 +13,10 @@ struct SidebarView: View {
 	private let connsQueue = DispatchQueue(label: "thread-safe-connsQueue", attributes: .concurrent)
 	private let timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect()
 	
-	@State private var sidebarSelectionName: String? = "Overview"
+	@State private var sidebarSelectionName: SidebarItem?
 	
     var body: some View {
-		ScrollViewReader { scrollViewProxy in
+		Group {
 			SidebarListView(selectionName: $sidebarSelectionName)
 		}
 		.environmentObject(clashApiDatasStorage.overviewData)
@@ -26,8 +26,6 @@ struct SidebarView: View {
 			if ConfigManager.selectLoggingApiLevel == .unknow {
 				ConfigManager.selectLoggingApiLevel = .info
 			}
-			
-			sidebarItemChanged(sidebarSelectionName)
 			
 			clashApiDatasStorage.resetStreamApi()
 			connsQueue.sync {
@@ -57,9 +55,8 @@ struct SidebarView: View {
 		}
 	}
 	
-	func sidebarItemChanged(_ name: String?) {
-		guard let str = name,
-			  let item = SidebarItem(rawValue: str) else { return }
+	func sidebarItemChanged(_ item: SidebarItem?) {
+		guard let item else { return }
 		
 		NotificationCenter.default.post(name: .sidebarItemChanged, object: nil, userInfo: ["item": item])
 	}
