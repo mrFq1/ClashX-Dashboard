@@ -26,6 +26,12 @@ public class DashboardWindowController: NSWindowController {
         window?.makeKeyAndOrderFront(self)
         window?.delegate = self
     }
+	
+	public func set(_ apiURL: String, secret: String? = nil) {
+		ConfigManager.shared.isRunning = true
+		ConfigManager.shared.overrideApiURL = .init(string: apiURL)
+		ConfigManager.shared.overrideSecret = secret
+	}
 }
 
 extension DashboardWindowController: NSWindowDelegate {
@@ -266,5 +272,5 @@ extension DashboardViewContoller: NSToolbarDelegate, NSToolbarItemValidation {
 			.logLevelItem,
 			.searchItem
 		]
-	}	
+	}
 }

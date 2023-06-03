@@ -22,10 +22,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 				self?.dashboardWindowController = nil
 			}
 		}
+		
+		dashboardWindowController?.set("http://127.0.0.1:9021")
 		dashboardWindowController?.showWindow(nil)
-		
-		
-		
 	}
 
 	
