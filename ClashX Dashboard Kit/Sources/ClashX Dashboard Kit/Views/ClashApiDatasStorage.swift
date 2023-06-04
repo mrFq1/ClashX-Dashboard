@@ -7,6 +7,7 @@
 import Cocoa
 import SwiftUI
 import CocoaLumberjackSwift
+import DifferenceKit
 
 class ClashApiDatasStorage: NSObject, ObservableObject {
 	
@@ -125,14 +126,17 @@ class ClashOverviewData: ObservableObject, Identifiable {
 class ClashLogStorage: ObservableObject {
 	@Published var logs = [ClashLog]()
 	
-	class ClashLog: NSObject, ObservableObject, Identifiable {
+	class ClashLog: NSObject, ObservableObject, Identifiable, Differentiable {
 		let id: String
+		var differenceIdentifier: String {
+			return id
+		}
 		
 		let date: Date
 		let level: ClashLogLevel
 		@objc let log: String
 		
-		let levelColor: Color
+		let levelColor: NSColor
 		@objc let levelString: String
 		
 		init(level: String, log: String) {
@@ -144,13 +148,13 @@ class ClashLogStorage: ObservableObject {
 			self.levelString = level
 			switch self.level {
 			case .info:
-				levelColor = .blue
+				levelColor = .systemBlue
 			case .warning:
-				levelColor = .yellow
+				levelColor = .systemYellow
 			case .error:
-				levelColor = .red
+				levelColor = .systemRed
 			case .debug:
-				levelColor = .green
+				levelColor = .systemGreen
 			default:
 				levelColor = .white
 			}
