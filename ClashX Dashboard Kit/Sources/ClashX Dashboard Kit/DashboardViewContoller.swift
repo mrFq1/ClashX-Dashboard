@@ -102,7 +102,10 @@ class DashboardViewContoller: NSViewController {
 			case .proxies, .providers:
 				items.append(.hideNamesItem)
 				items.append(.searchItem)
-			case .conns, .rules:
+			case .rules:
+				items.append(.searchItem)
+			case .conns:
+				items.append(.stopConnsItem)
 				items.append(.searchItem)
 			case .logs:
 				items.append(.logLevelItem)
