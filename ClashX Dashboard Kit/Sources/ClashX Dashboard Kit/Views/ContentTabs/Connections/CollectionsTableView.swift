@@ -48,6 +48,7 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 		let scrollView = NonRespondingScrollView()
 		scrollView.hasVerticalScroller = true
 		scrollView.hasHorizontalScroller = true
+		scrollView.autohidesScrollers = true
 
 		let tableView = NonRespondingTableView()
 		tableView.usesAlternatingRowBackgroundColors = true
