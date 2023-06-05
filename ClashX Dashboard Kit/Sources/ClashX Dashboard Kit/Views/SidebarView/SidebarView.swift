@@ -13,10 +13,10 @@ struct SidebarView: View {
 	private let connsQueue = DispatchQueue(label: "thread-safe-connsQueue", attributes: .concurrent)
 	private let timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect()
 	
-	@State private var sidebarSelectionName: String? = "Overview"
+	@State private var sidebarSelectionName: SidebarItem?
 	
     var body: some View {
-		ScrollViewReader { scrollViewProxy in
+		Group {
 			SidebarListView(selectionName: $sidebarSelectionName)
 		}
 		.environmentObject(clashApiDatasStorage.overviewData)
@@ -35,9 +35,13 @@ struct SidebarView: View {
 			
 			updateConnections()
 		}
+		.onChange(of: sidebarSelectionName) { newValue in
+			sidebarItemChanged(newValue)
+		}
 		.onReceive(timer, perform: { _ in
 			updateConnections()
 		})
+
 	}
 	
 	func updateConnections() {
@@ -49,6 +53,12 @@ struct SidebarView: View {
 				clashApiDatasStorage.connsStorage.conns = snap.connections
 			}
 		}
+	}
+	
+	func sidebarItemChanged(_ item: SidebarItem?) {
+		guard let item else { return }
+		
+		NotificationCenter.default.post(name: .sidebarItemChanged, object: nil, userInfo: ["item": item])
 	}
 }
 

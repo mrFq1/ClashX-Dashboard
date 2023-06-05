@@ -18,15 +18,26 @@ struct ConnectionsView: View {
 							 filterString: searchString)
 			.background(Color(nsColor: .textBackgroundColor))
 			.searchable(text: $searchString)
+			.onReceive(NotificationCenter.default.publisher(for: .toolbarSearchString)) {
+				guard let string = $0.userInfo?["String"] as? String else { return }
+				searchString = string
+			}
+			.onReceive(NotificationCenter.default.publisher(for: .stopConns)) { _ in
+				stopConns()
+			}
 			.toolbar {
 				ToolbarItem {
 					Button {
-						ApiRequest.closeAllConnection()
+						stopConns()
 					} label: {
 						Image(systemName: "stop.circle.fill")
 					}
 				}
 			}
+	}
+	
+	func stopConns() {
+		ApiRequest.closeAllConnection()
 	}
 }
 
