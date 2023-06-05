@@ -5,7 +5,7 @@
 //
 
 import Cocoa
-import ClashX_Dashboard_Kit
+import ClashX_Dashboard
 
 
 @main

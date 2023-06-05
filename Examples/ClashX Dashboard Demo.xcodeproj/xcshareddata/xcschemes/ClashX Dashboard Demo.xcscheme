@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0192315A29DD4DCF00539EDD"
-               BuildableName = "ClashX Dashboard.app"
-               BlueprintName = "ClashX Dashboard"
-               ReferencedContainer = "container:ClashX Dashboard.xcodeproj">
+               BuildableName = "ClashX Dashboard Demo.app"
+               BlueprintName = "ClashX Dashboard Demo"
+               ReferencedContainer = "container:ClashX Dashboard Demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0192315A29DD4DCF00539EDD"
-            BuildableName = "ClashX Dashboard.app"
-            BlueprintName = "ClashX Dashboard"
-            ReferencedContainer = "container:ClashX Dashboard.xcodeproj">
+            BuildableName = "ClashX Dashboard Demo.app"
+            BlueprintName = "ClashX Dashboard Demo"
+            ReferencedContainer = "container:ClashX Dashboard Demo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0192315A29DD4DCF00539EDD"
-            BuildableName = "ClashX Dashboard.app"
-            BlueprintName = "ClashX Dashboard"
-            ReferencedContainer = "container:ClashX Dashboard.xcodeproj">
+            BuildableName = "ClashX Dashboard Demo.app"
+            BlueprintName = "ClashX Dashboard Demo"
+            ReferencedContainer = "container:ClashX Dashboard Demo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

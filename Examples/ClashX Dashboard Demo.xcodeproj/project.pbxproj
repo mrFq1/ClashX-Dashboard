@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		011BFE462A279D1C0027AD15 /* ClashX Dashboard Kit in Frameworks */ = {isa = PBXBuildFile; productRef = 011BFE452A279D1C0027AD15 /* ClashX Dashboard Kit */; };
+		012875E22A2E38D1004FB615 /* ClashX Dashboard in Frameworks */ = {isa = PBXBuildFile; productRef = 012875E12A2E38D1004FB615 /* ClashX Dashboard */; };
 		0192315F29DD4DCF00539EDD /* ClashX_DashboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192315E29DD4DCF00539EDD /* ClashX_DashboardApp.swift */; };
 		0192316329DD4DD100539EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0192316229DD4DD100539EDD /* Assets.xcassets */; };
 		0192316629DD4DD100539EDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0192316529DD4DD100539EDD /* Preview Assets.xcassets */; };
@@ -16,8 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		011BFE402A2799550027AD15 /* ClashX Dashboard Kit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "ClashX Dashboard Kit"; sourceTree = "<group>"; };
-		0192315B29DD4DCF00539EDD /* ClashX Dashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ClashX Dashboard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		012875DE2A2E37AB004FB615 /* ClashX Dashboard */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "ClashX Dashboard"; path = ..; sourceTree = "<group>"; };
+		0192315B29DD4DCF00539EDD /* ClashX Dashboard Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ClashX Dashboard Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0192315E29DD4DCF00539EDD /* ClashX_DashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashX_DashboardApp.swift; sourceTree = "<group>"; };
 		0192316229DD4DD100539EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0192316529DD4DD100539EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -31,7 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				011BFE462A279D1C0027AD15 /* ClashX Dashboard Kit in Frameworks */,
+				012875E22A2E38D1004FB615 /* ClashX Dashboard in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,10 +45,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		012875DD2A2E37AB004FB615 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				012875DE2A2E37AB004FB615 /* ClashX Dashboard */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		0192315229DD4DCF00539EDD = {
 			isa = PBXGroup;
 			children = (
-				011BFE402A2799550027AD15 /* ClashX Dashboard Kit */,
+				012875DD2A2E37AB004FB615 /* Packages */,
 				0192315D29DD4DCF00539EDD /* ClashX Dashboard */,
 				0192315C29DD4DCF00539EDD /* Products */,
 				011BFE442A279D1C0027AD15 /* Frameworks */,
@@ -58,7 +66,7 @@
 		0192315C29DD4DCF00539EDD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0192315B29DD4DCF00539EDD /* ClashX Dashboard.app */,
+				0192315B29DD4DCF00539EDD /* ClashX Dashboard Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0192315A29DD4DCF00539EDD /* ClashX Dashboard */ = {
+		0192315A29DD4DCF00539EDD /* ClashX Dashboard Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0192316A29DD4DD100539EDD /* Build configuration list for PBXNativeTarget "ClashX Dashboard" */;
+			buildConfigurationList = 0192316A29DD4DD100539EDD /* Build configuration list for PBXNativeTarget "ClashX Dashboard Demo" */;
 			buildPhases = (
 				0192315729DD4DCF00539EDD /* Sources */,
 				0192315829DD4DCF00539EDD /* Frameworks */,
@@ -99,12 +107,12 @@
 			);
 			dependencies = (
 			);
-			name = "ClashX Dashboard";
+			name = "ClashX Dashboard Demo";
 			packageProductDependencies = (
-				011BFE452A279D1C0027AD15 /* ClashX Dashboard Kit */,
+				012875E12A2E38D1004FB615 /* ClashX Dashboard */,
 			);
 			productName = "ClashX Dashboard";
-			productReference = 0192315B29DD4DCF00539EDD /* ClashX Dashboard.app */;
+			productReference = 0192315B29DD4DCF00539EDD /* ClashX Dashboard Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -122,7 +130,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0192315629DD4DCF00539EDD /* Build configuration list for PBXProject "ClashX Dashboard" */;
+			buildConfigurationList = 0192315629DD4DCF00539EDD /* Build configuration list for PBXProject "ClashX Dashboard Demo" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -137,7 +145,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0192315A29DD4DCF00539EDD /* ClashX Dashboard */,
+				0192315A29DD4DCF00539EDD /* ClashX Dashboard Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -340,7 +348,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0192315629DD4DCF00539EDD /* Build configuration list for PBXProject "ClashX Dashboard" */ = {
+		0192315629DD4DCF00539EDD /* Build configuration list for PBXProject "ClashX Dashboard Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0192316829DD4DD100539EDD /* Debug */,
@@ -349,7 +357,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0192316A29DD4DD100539EDD /* Build configuration list for PBXNativeTarget "ClashX Dashboard" */ = {
+		0192316A29DD4DD100539EDD /* Build configuration list for PBXNativeTarget "ClashX Dashboard Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0192316B29DD4DD100539EDD /* Debug */,
@@ -361,9 +369,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		011BFE452A279D1C0027AD15 /* ClashX Dashboard Kit */ = {
+		012875E12A2E38D1004FB615 /* ClashX Dashboard */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = "ClashX Dashboard Kit";
+			productName = "ClashX Dashboard";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

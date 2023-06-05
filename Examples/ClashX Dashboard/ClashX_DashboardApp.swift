@@ -5,7 +5,7 @@
 //
 
 import SwiftUI
-import ClashX_Dashboard_Kit
+import ClashX_Dashboard
 
 //@main
 struct ClashX_DashboardApp: App {

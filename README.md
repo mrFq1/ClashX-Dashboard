@@ -1,3 +1,3 @@
-# ClashX Dashboard Kit
+# ClashX Dashboard
 
 A description of this package.
