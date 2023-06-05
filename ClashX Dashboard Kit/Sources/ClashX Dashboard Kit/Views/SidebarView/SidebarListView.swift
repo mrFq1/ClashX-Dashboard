@@ -11,6 +11,9 @@ struct SidebarListView: View {
 	
 	@Binding var selectionName: SidebarItem?
 	
+	@State private var reloadID = UUID().uuidString
+	
+	
     var body: some View {
 		List {
 			NavigationLink(destination: OverviewView(),
@@ -66,6 +69,10 @@ struct SidebarListView: View {
 			}
 		}
 		.listStyle(.sidebar)
+		.id(reloadID)
+		.onReceive(NotificationCenter.default.publisher(for: .reloadDashboard)) { _ in
+			reloadID = UUID().uuidString
+		}
     }
 }
 
