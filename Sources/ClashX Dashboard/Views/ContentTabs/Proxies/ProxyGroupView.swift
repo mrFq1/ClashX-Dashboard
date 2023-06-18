@@ -98,7 +98,7 @@ struct ProxyGroupView: View {
 			ForEach(proxies, id: \.id) { proxy in
 				ProxyItemView(
 					proxy: proxy,
-					selectable: selectable
+					selectable: [.select, .fallback].contains(proxyGroup.type)
 				)
 				.background(proxyGroup.now == proxy.name ? Color.pink.opacity(0.3) : Color(nsColor: .textBackgroundColor))
 				.cornerRadius(8)
