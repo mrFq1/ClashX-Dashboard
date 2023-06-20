@@ -1,5 +1,5 @@
 //
-//  CollectionsTableView.swift
+//  ConnectionsTableView.swift
 //  ClashX Dashboard
 //
 //
@@ -7,7 +7,7 @@ import SwiftUI
 import AppKit
 import DifferenceKit
 
-struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
+struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 
 	enum TableColumn: String, CaseIterable {
 		case host = "Host"
@@ -56,6 +56,11 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 		tableView.delegate = context.coordinator
 		tableView.dataSource = context.coordinator
 		
+		let menu = NSMenu()
+		menu.showsStateColumn = true
+		tableView.headerView?.menu = menu
+		
+		
 		TableColumn.allCases.forEach {
 			let tableColumn = NSTableColumn(identifier: .init($0.rawValue))
 			tableColumn.title = $0.rawValue
@@ -97,6 +102,15 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 			}
 			
 			tableColumn.sortDescriptorPrototype = sort
+			
+			let item = NSMenuItem(
+				title: $0.rawValue,
+				action: #selector(context.coordinator.toggleColumn(_:)),
+				keyEquivalent: "")
+			item.target = context.coordinator
+			item.representedObject = tableColumn
+			
+			menu.addItem(item)
 		}
 		
 		
@@ -107,6 +121,14 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 		
 		scrollView.documentView = tableView
 
+		tableView.autosaveName = "ClashX_Dashboard.Connections.TableView"
+		tableView.autosaveTableColumns = true
+		
+		menu.items.forEach {
+			guard let column = $0.representedObject as? NSTableColumn else { return }
+			$0.state = column.isHidden ? .off : .on
+		}
+		
 		return scrollView
 	}
 
@@ -158,11 +180,11 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 	
 	class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
 
-		var parent: CollectionsTableView
+		var parent: ConnectionsTableView
 		
 		var conns = [DBConnectionObject]()
 
-		init(parent: CollectionsTableView) {
+		init(parent: ConnectionsTableView) {
 			self.parent = parent
 		}
 		
@@ -216,6 +238,12 @@ struct CollectionsTableView<Item: Hashable>: NSViewRepresentable {
 			tableView.reloadData()
 		}
 		
+		@objc func toggleColumn(_ menuItem: NSMenuItem) {
+			guard let column = menuItem.representedObject as? NSTableColumn else { return }
+			let hide = menuItem.state == .on
+			column.isHidden = hide
+			menuItem.state = hide ? .off : .on
+		}
 
 	}
 }

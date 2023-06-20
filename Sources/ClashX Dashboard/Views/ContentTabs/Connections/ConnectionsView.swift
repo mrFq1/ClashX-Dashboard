@@ -14,7 +14,7 @@ struct ConnectionsView: View {
 	
     var body: some View {
 
-		CollectionsTableView(data: data.conns,
+		ConnectionsTableView(data: data.conns,
 							 filterString: searchString)
 			.background(Color(nsColor: .textBackgroundColor))
 			.searchable(text: $searchString)
