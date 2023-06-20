@@ -18,6 +18,8 @@ struct ProxyGroupView: View {
 	@State private var selectable = false
 	@State private var isTesting = false
 	
+	@State private var groupSelected: String?
+	
 	var proxies: [DBProxy] {
 		if searchString.string.isEmpty {
 			return proxyGroup.proxies
@@ -52,6 +54,7 @@ struct ProxyGroupView: View {
 		}
 		.onAppear {
 			self.selectable = [.select, .fallback].contains(proxyGroup.type)
+			self.groupSelected = proxyGroup.now
 		}
 	}
 	
@@ -98,9 +101,9 @@ struct ProxyGroupView: View {
 			ForEach(proxies, id: \.id) { proxy in
 				ProxyItemView(
 					proxy: proxy,
-					selectable: [.select, .fallback].contains(proxyGroup.type)
+					selectable: [.select, .fallback].contains(proxyGroup.type),
+					now: $groupSelected
 				)
-				.background(proxyGroup.now == proxy.name ? Color.pink.opacity(0.3) : Color(nsColor: .textBackgroundColor))
 				.cornerRadius(8)
 				.onTapGesture {
 					let item = proxy
@@ -138,6 +141,7 @@ struct ProxyGroupView: View {
 			isUpdatingSelect = false
 			guard success else { return }
 			proxyGroup.now = name
+			self.groupSelected = name
 		}
 	}
 	

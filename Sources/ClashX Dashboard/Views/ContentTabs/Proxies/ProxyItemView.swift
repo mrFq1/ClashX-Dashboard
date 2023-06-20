@@ -10,13 +10,15 @@ struct ProxyItemView: View {
 	
 	@ObservedObject var proxy: DBProxy
 	@State var selectable: Bool
+	@Binding var now: String?
 	
 	@EnvironmentObject var hideProxyNames: HideProxyNames
 	
-	init(proxy: DBProxy, selectable: Bool) {
+	
+	init(proxy: DBProxy, selectable: Bool, now: Binding<String?> = .init(get: {nil}) { _ in }) {
 		self.proxy = proxy
 		self.selectable = selectable
-		
+		self._now = now
 		self.isBuiltInProxy = [.pass, .direct, .reject].contains(proxy.type)
 	}
 	
@@ -68,6 +70,7 @@ struct ProxyItemView: View {
 				.padding(1)
 		)
 		
+		.background(now == proxy.name ? Color.accentColor.opacity(0.7) : Color(nsColor: .textBackgroundColor))
 	}
 }
 
