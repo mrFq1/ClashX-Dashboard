@@ -19,47 +19,49 @@ struct SidebarListView: View {
 			NavigationLink(destination: OverviewView(),
 						   tag: SidebarItem.overview,
 						   selection: $selectionName) {
-				Label(SidebarItem.overview.rawValue, systemImage: "chart.bar.xaxis")
+				SidebarLabel(item: .overview, iconName: "chart.bar.xaxis")
 			}
 			
 			NavigationLink(destination: ProxiesView(),
 						   tag: SidebarItem.proxies,
 						   selection: $selectionName) {
-				Label(SidebarItem.proxies.rawValue, systemImage: "globe.asia.australia")
+				SidebarLabel(item: .proxies, iconName: "globe.asia.australia")
 			}
 			
 			NavigationLink(destination: ProvidersView(),
 						   tag: SidebarItem.providers,
 						   selection: $selectionName) {
-				Label(SidebarItem.providers.rawValue, systemImage: "link.icloud")
+				SidebarLabel(item: .providers, iconName: "link.icloud")
 			}
 			
 			NavigationLink(destination: RulesView(),
 						   tag: SidebarItem.rules,
 						   selection: $selectionName) {
-				Label(SidebarItem.rules.rawValue, systemImage: "waveform.and.magnifyingglass")
+				SidebarLabel(item: .rules, iconName: "waveform.and.magnifyingglass")
 			}
 			
 			NavigationLink(destination: ConnectionsView(),
 						   tag: SidebarItem.conns,
 						   selection: $selectionName) {
-				Label(SidebarItem.conns.rawValue, systemImage: "app.connected.to.app.below.fill")
+				SidebarLabel(item: .conns, iconName: "app.connected.to.app.below.fill")
 			}
 			
 			NavigationLink(destination: ConfigView(),
 						   tag: SidebarItem.config,
 						   selection: $selectionName) {
-				Label(SidebarItem.config.rawValue, systemImage: "slider.horizontal.3")
+				SidebarLabel(item: .config, iconName: "slider.horizontal.3")
 			}
 			
 			NavigationLink(destination: LogsView(),
 						   tag: SidebarItem.logs,
 						   selection: $selectionName) {
-				Label(SidebarItem.logs.rawValue, systemImage: "wand.and.stars.inverse")
+				SidebarLabel(item: .logs, iconName: "wand.and.stars.inverse")
 			}
 			
 		}
 		.introspectTableView {
+			$0.refusesFirstResponder = true
+			
 			if selectionName == nil {
 				selectionName = SidebarItem.overview
 				$0.allowsEmptySelection = false
