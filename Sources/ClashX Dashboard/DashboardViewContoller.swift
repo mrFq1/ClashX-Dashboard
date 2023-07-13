@@ -121,6 +121,8 @@ class DashboardViewContoller: NSViewController {
 
 	public override func viewWillAppear() {
 		super.viewWillAppear()
+		guard view.window?.toolbar == nil else { return }
+		
 		view.window?.styleMask.insert(.fullSizeContentView)
 		
 		view.window?.isOpaque = false
