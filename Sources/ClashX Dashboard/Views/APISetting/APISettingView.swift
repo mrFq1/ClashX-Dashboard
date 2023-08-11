@@ -5,7 +5,7 @@
 //
 
 import SwiftUI
-import Introspect
+import SwiftUIIntrospect
 
 struct APISettingView: View {
 	@State var baseURL: String = ""
@@ -62,7 +62,7 @@ struct APISettingView: View {
 					}
 				}
 			}
-			.introspectTableView {
+			.introspect(.table, on: .macOS(.v12, .v13, .v14)) {
 				$0.backgroundColor = NSColor.clear
 				$0.enclosingScrollView?.drawsBackground = false
 			}

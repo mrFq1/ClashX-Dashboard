@@ -5,7 +5,7 @@
 //
 
 import SwiftUI
-import Introspect
+import SwiftUIIntrospect
 
 class ProxiesSearchString: ObservableObject, Identifiable {
 	let id = UUID().uuidString
@@ -26,7 +26,7 @@ struct ProxiesView: View {
 			List(proxyStorage.groups, id: \.id) { group in
 				ProxyGroupRowView(proxyGroup: group)
 			}
-			.introspectTableView {
+			.introspect(.table, on: .macOS(.v12, .v13, .v14)) {
 				$0.refusesFirstResponder = true
 				$0.doubleAction = nil
 			}

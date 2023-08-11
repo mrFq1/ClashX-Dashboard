@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import SwiftUIIntrospect
 
 struct ProvidersView: View {
 	@ObservedObject var providerStorage = DBProviderStorage()
@@ -71,7 +72,7 @@ struct ProvidersView: View {
 				}
 			}
 		}
-		.introspectTableView {
+		.introspect(.table, on: .macOS(.v12, .v13, .v14)) {
 			$0.refusesFirstResponder = true
 			$0.doubleAction = nil
 		}

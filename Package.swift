@@ -22,7 +22,7 @@ let package = Package(
 		 .package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", from: "3.0.0"),
 		 .package(url: "https://github.com/ra1028/DifferenceKit.git", from: "1.0.0"),
 		 .package(url: "https://github.com/dagronf/DSFSparkline.git", from: "4.0.0"),
-		 .package(url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.2.3"),
+		 .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.10.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -35,7 +35,7 @@ let package = Package(
 				.product(name: "CocoaLumberjackSwift", package: "CocoaLumberjack"),
 				"DifferenceKit",
 				"DSFSparkline",
-				.product(name: "Introspect", package: "SwiftUI-Introspect"),
+				.product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
 				"Starscream",
 				"SwiftyJSON",
 				
