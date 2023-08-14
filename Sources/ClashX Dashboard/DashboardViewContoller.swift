@@ -146,6 +146,12 @@ class DashboardViewContoller: NSViewController {
 		if NSApp.activationPolicy() == .accessory {
 			NSApp.setActivationPolicy(.regular)
 		}
+		
+		
+		// Fix sidebar list highlight
+		let button = NSButton(frame: .zero)
+		view.window?.contentView?.addSubview(button)
+		view.window?.initialFirstResponder = button
 	}
 	
 	func reinitToolbar(_ items: [NSToolbarItem.Identifier]) {
