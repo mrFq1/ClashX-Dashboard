@@ -20,7 +20,6 @@ struct ProvidersView: View {
 			listView
 			EmptyView()
 		}
-		.searchable(text: $searchString.string)
 		.onReceive(NotificationCenter.default.publisher(for: .toolbarSearchString)) {
 			guard let string = $0.userInfo?["String"] as? String else { return }
 			searchString.string = string
@@ -34,15 +33,6 @@ struct ProvidersView: View {
 			loadProviders()
 		}
 		.environmentObject(hideProxyNames)
-		.toolbar {
-			ToolbarItem {
-				Button {
-					hideProxyNames.hide = !hideProxyNames.hide
-				} label: {
-					Image(systemName: hideProxyNames.hide ? "eyeglasses" : "wand.and.stars")
-				}
-			}
-		}
     }
 	
 	var listView: some View {

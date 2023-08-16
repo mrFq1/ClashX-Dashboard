@@ -28,7 +28,6 @@ struct RulesView: View {
 				RuleItemView(index: $0.offset, rule: $0.element)
 			}
 		}
-		.searchable(text: $searchString)
 		.onReceive(NotificationCenter.default.publisher(for: .toolbarSearchString)) {
 			guard let string = $0.userInfo?["String"] as? String else { return }
 			searchString = string

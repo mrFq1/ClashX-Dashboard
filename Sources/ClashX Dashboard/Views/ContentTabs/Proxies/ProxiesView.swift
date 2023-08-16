@@ -33,7 +33,6 @@ struct ProxiesView: View {
 			.listStyle(.plain)
 			EmptyView()
 		}
-		.searchable(text: $searchString.string)
 		.onReceive(NotificationCenter.default.publisher(for: .toolbarSearchString)) {
 			guard let string = $0.userInfo?["String"] as? String else { return }
 			searchString.string = string
@@ -47,15 +46,6 @@ struct ProxiesView: View {
 			loadProxies()
 		}
 		.environmentObject(hideProxyNames)
-		.toolbar {
-			ToolbarItem {
-				Button {
-					hideProxyNames.hide = !hideProxyNames.hide
-				} label: {
-					Image(systemName: hideProxyNames.hide ? "eyeglasses" : "wand.and.stars")
-				}
-			}
-		}
     }
 	
 	

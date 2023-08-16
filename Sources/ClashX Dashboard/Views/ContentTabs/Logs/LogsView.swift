@@ -17,7 +17,6 @@ struct LogsView: View {
 		Group {
 			LogsTableView(data: logStorage.logs.reversed(), filterString: searchString)
 		}
-		.searchable(text: $searchString)
 		.onReceive(NotificationCenter.default.publisher(for: .toolbarSearchString)) {
 			guard let string = $0.userInfo?["String"] as? String else { return }
 			searchString = string
@@ -25,26 +24,6 @@ struct LogsView: View {
 		.onReceive(NotificationCenter.default.publisher(for: .logLevelChanged)) {
 			guard let level = $0.userInfo?["level"] as? ClashLogLevel else { return }
 			logLevelChanged(level)
-		}
-		.toolbar {
-			ToolbarItem {
-				Picker("", selection: $logLevel) {
-					ForEach([
-						ClashLogLevel.silent,
-						.error,
-						.warning,
-						.info,
-						.debug
-					], id: \.self) {
-						Text($0.rawValue.capitalized).tag($0)
-					}
-				}
-				.pickerStyle(.menu)
-				.onChange(of: logLevel) { newValue in
-					guard newValue != ConfigManager.selectLoggingApiLevel else { return }
-					logLevelChanged(newValue)
-				}
-			}
 		}
     }
 	

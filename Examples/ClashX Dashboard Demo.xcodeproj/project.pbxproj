@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		012875E22A2E38D1004FB615 /* ClashX Dashboard in Frameworks */ = {isa = PBXBuildFile; productRef = 012875E12A2E38D1004FB615 /* ClashX Dashboard */; };
-		0192315F29DD4DCF00539EDD /* ClashX_DashboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0192315E29DD4DCF00539EDD /* ClashX_DashboardApp.swift */; };
 		0192316329DD4DD100539EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0192316229DD4DD100539EDD /* Assets.xcassets */; };
 		0192316629DD4DD100539EDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0192316529DD4DD100539EDD /* Preview Assets.xcassets */; };
 		01A78B7F2A2B188F0058D1CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01A78B7E2A2B188E0058D1CA /* Main.storyboard */; };
@@ -18,7 +17,6 @@
 /* Begin PBXFileReference section */
 		012875DE2A2E37AB004FB615 /* ClashX Dashboard */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "ClashX Dashboard"; path = ..; sourceTree = "<group>"; };
 		0192315B29DD4DCF00539EDD /* ClashX Dashboard Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ClashX Dashboard Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0192315E29DD4DCF00539EDD /* ClashX_DashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClashX_DashboardApp.swift; sourceTree = "<group>"; };
 		0192316229DD4DD100539EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0192316529DD4DD100539EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0192316729DD4DD100539EDD /* ClashX_Dashboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClashX_Dashboard.entitlements; sourceTree = "<group>"; };
@@ -74,7 +72,6 @@
 		0192315D29DD4DCF00539EDD /* ClashX Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				0192315E29DD4DCF00539EDD /* ClashX_DashboardApp.swift */,
 				01FE884B2A29BB590084902C /* AppDelegate.swift */,
 				01A78B7E2A2B188E0058D1CA /* Main.storyboard */,
 				0192316229DD4DD100539EDD /* Assets.xcassets */,
@@ -169,7 +166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				01FE884C2A29BB590084902C /* AppDelegate.swift in Sources */,
-				0192315F29DD4DCF00539EDD /* ClashX_DashboardApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
