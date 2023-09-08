@@ -6,7 +6,6 @@
 
 import Cocoa
 import SwiftUI
-import DifferenceKit
 
 struct LogsTableView<Item: Hashable>: NSViewRepresentable {
 	
@@ -41,7 +40,7 @@ struct LogsTableView<Item: Hashable>: NSViewRepresentable {
 		tableView.dataSource = context.coordinator
 		
 		TableColumn.allCases.forEach {
-			let tableColumn = NSTableColumn(identifier: .init($0.rawValue))
+			let tableColumn = NSTableColumn(identifier: .init("LogsTableView." + $0.rawValue))
 			tableColumn.title = $0.rawValue
 			tableColumn.isEditable = false
 			
@@ -69,19 +68,11 @@ struct LogsTableView<Item: Hashable>: NSViewRepresentable {
 	func updateNSView(_ nsView: NSScrollView, context: Context) {
 		context.coordinator.parent = self
 		guard let tableView = nsView.documentView as? NSTableView,
-			  let data = data as? [ClashLogStorage.ClashLog] else {
+			  var data = data as? [ClashLogStorage.ClashLog] else {
 			return
 		}
-		
-		let target = updateSorts(data, tableView: tableView)
-		
-		let source = context.coordinator.logs
-		let changeset = StagedChangeset(source: source, target: target)
-		
-	
-		tableView.reload(using: changeset) { data in
-			context.coordinator.logs = data
-		}
+		data = updateSorts(data, tableView: tableView)
+		context.coordinator.updateLogs(data, for: tableView)
 	}
 	
 	func updateSorts(_ objects: [ClashLogStorage.ClashLog],
@@ -114,10 +105,26 @@ struct LogsTableView<Item: Hashable>: NSViewRepresentable {
 			df.dateFormat = "MM/dd HH:mm:ss.SSS"
 			return df
 		}()
-
 		
 		init(parent: LogsTableView) {
 			self.parent = parent
+		}
+		
+		func updateLogs(_ logs: [ClashLogStorage.ClashLog], for tableView: NSTableView) {
+			
+			let changes = logs.difference(from: self.logs) {
+				$0.id == $1.id
+			}
+			
+			guard let partialChanges = self.logs.applying(changes) else { return }
+			
+			self.logs = partialChanges
+
+			let indicesToReload = IndexSet(zip(partialChanges, logs).enumerated().compactMap { index, pair -> Int? in
+				(pair.0.id == pair.1.id && pair.0 != pair.1) ? index : nil
+			})
+			
+			tableView.reloadData(changes, indexs: indicesToReload)
 		}
 		
 		
@@ -128,31 +135,37 @@ struct LogsTableView<Item: Hashable>: NSViewRepresentable {
 		
 		func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 			
-			guard let cellView = tableView.createCellView(with: "LogsTableCellView"),
-				  let s = tableColumn?.identifier.rawValue.split(separator: ".").last,
-				  let tc = TableColumn(rawValue: String(s))
+			guard let identifier = tableColumn?.identifier,
+				  let cellView = tableView.makeCellView(with: identifier.rawValue, owner: self),
+				  let s = identifier.rawValue.split(separator: ".").last,
+				  let tc = TableColumn(rawValue: String(s)),
+				  row >= 0,
+				  row < logs.count,
+				  let tf = cellView.textField
 			else { return nil }
 			
 			let log = logs[row]
-			let tf = cellView.textField
+			
+			tf.isEditable = false
+			tf.isSelectable = false
 			
 			switch tc {
 			case .date:
-				tf?.lineBreakMode = .byTruncatingHead
-				tf?.textColor = .orange
-				tf?.stringValue = dateFormatter.string(from: log.date)
+				tf.lineBreakMode = .byTruncatingHead
+				tf.textColor = .orange
+				tf.stringValue = dateFormatter.string(from: log.date)
 			case .level:
-				tf?.lineBreakMode = .byTruncatingTail
-				tf?.textColor = log.levelColor
-				tf?.stringValue = log.levelString
+				tf.lineBreakMode = .byTruncatingTail
+				tf.textColor = log.levelColor
+				tf.stringValue = log.levelString
 			case .log:
-				tf?.lineBreakMode = .byTruncatingTail
-				tf?.textColor = .labelColor
-				tf?.stringValue = log.log
+				tf.lineBreakMode = .byTruncatingTail
+				tf.textColor = .labelColor
+				tf.stringValue = log.log
+				tf.isSelectable = true
 			}
 			
 			return cellView
 		}
-		
 	}
 }

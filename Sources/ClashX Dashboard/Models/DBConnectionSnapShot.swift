@@ -5,7 +5,6 @@
 //
 
 import Cocoa
-import DifferenceKit
 
 struct DBConnectionSnapShot: Codable {
 	let downloadTotal: Int
@@ -49,7 +48,7 @@ struct DBMetaConnectionData: Codable, Hashable {
 }
 
 
-class DBConnectionObject: NSObject, Differentiable {
+class DBConnectionObject: NSObject {
 	@objc let id: String
 	@objc let host: String
 	@objc let sniffHost: String
@@ -67,9 +66,11 @@ class DBConnectionObject: NSObject, Differentiable {
 	@objc let destinationIP: String?
 	@objc let type: String
 	
-	var differenceIdentifier: String {
-		return id
-	}
+	@objc var downloadSpeed: Int64
+	@objc var uploadSpeed: Int64
+	var downloadSpeedString: String
+	var uploadSpeedString: String
+	
 	
 	func isContentEqual(to source: DBConnectionObject) -> Bool {
 		download == source.download &&
@@ -103,6 +104,40 @@ class DBConnectionObject: NSObject, Differentiable {
 						 metadata.host].first(where: { $0 != "" })
 		
 		type = "\(metadata.type)(\(metadata.network))"
+		
+		downloadSpeed = 0
+		uploadSpeed = 0
+		downloadSpeedString = ""
+		uploadSpeedString = ""
 	}
 	
+	
+	func updateSpeeds(_ old: (download: Int64, upload: Int64)?) {
+		guard let old = old else {
+			downloadSpeed = 0
+			uploadSpeed = 0
+			downloadSpeedString = ""
+			uploadSpeedString = ""
+			return
+		}
+		
+		let byteCountFormatter = ByteCountFormatter()
+		
+		downloadSpeed = download - old.download
+		uploadSpeed = upload - old.upload
+		
+		if downloadSpeed >= 0 {
+			downloadSpeedString = byteCountFormatter.string(fromByteCount: downloadSpeed) + "/s"
+		} else {
+			downloadSpeed = 0
+			downloadSpeedString = ""
+		}
+		
+		if uploadSpeed >= 0 {
+			uploadSpeedString = byteCountFormatter.string(fromByteCount: uploadSpeed) + "/s"
+		} else {
+			uploadSpeed = 0
+			uploadSpeedString = ""
+		}
+	}
 }

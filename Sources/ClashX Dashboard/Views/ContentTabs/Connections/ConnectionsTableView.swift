@@ -5,7 +5,6 @@
 //
 import SwiftUI
 import AppKit
-import DifferenceKit
 
 struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 
@@ -13,6 +12,8 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 		case host = "Host"
 		case sniffHost = "Sniff Host"
 		case process = "Process"
+		case dlSpeed = "DL Speed"
+		case ulSpeed = "UL Speed"
 		case dl = "DL"
 		case ul = "UL"
 		case chain = "Chain"
@@ -62,7 +63,7 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 		
 		
 		TableColumn.allCases.forEach {
-			let tableColumn = NSTableColumn(identifier: .init($0.rawValue))
+			let tableColumn = NSTableColumn(identifier: .init("ConnectionsTableView." + $0.rawValue))
 			tableColumn.title = $0.rawValue
 			tableColumn.isEditable = false
 			
@@ -81,6 +82,10 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 				sort = .init(keyPath: \DBConnectionObject.sniffHost, ascending: true)
 			case .process:
 				sort = .init(keyPath: \DBConnectionObject.process, ascending: true)
+			case .dlSpeed:
+				sort = .init(keyPath: \DBConnectionObject.downloadSpeed, ascending: true)
+			case .ulSpeed:
+				sort = .init(keyPath: \DBConnectionObject.uploadSpeed, ascending: true)
 			case .dl:
 				sort = .init(keyPath: \DBConnectionObject.download, ascending: true)
 			case .ul:
@@ -97,8 +102,6 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 				sort = .init(keyPath: \DBConnectionObject.destinationIP, ascending: true)
 			case .type:
 				sort = .init(keyPath: \DBConnectionObject.type, ascending: true)
-			default:
-				sort = nil
 			}
 			
 			tableColumn.sortDescriptorPrototype = sort
@@ -139,22 +142,27 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 			return
 		}
 		
-		let target = updateSorts(data.map(DBConnectionObject.init), tableView: tableView)
+		var conns = data.map(DBConnectionObject.init)
 		
-		let source = context.coordinator.conns
-		let changeset = StagedChangeset(source: source, target: target)
-		
-	
-		tableView.reload(using: changeset) { data in
-			context.coordinator.conns = data
+		let connHistorys = context.coordinator.connHistorys
+		conns.forEach {
+			$0.updateSpeeds(connHistorys[$0.id])
 		}
+		
+		conns = updateSorts(conns, tableView: tableView)
+		context.coordinator.updateConns(conns, for: tableView)
 	}
 	
 	func updateSorts(_ objects: [DBConnectionObject],
 					 tableView: NSTableView) -> [DBConnectionObject] {
 		var re = objects
 		
-		var sortDescriptors = tableView.sortDescriptors
+		var sortDescriptors = [NSSortDescriptor]()
+		
+		if let sort = tableView.sortDescriptors.first {
+			sortDescriptors.append(sort)
+		}
+		
 		sortDescriptors.append(.init(keyPath: \DBConnectionObject.id, ascending: true))
 		re = re.sorted(descriptors: sortDescriptors)
 		
@@ -183,9 +191,39 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 		var parent: ConnectionsTableView
 		
 		var conns = [DBConnectionObject]()
+		var connHistorys = [String: (download: Int64, upload: Int64)]()
 
 		init(parent: ConnectionsTableView) {
 			self.parent = parent
+		}
+		
+		func updateConns(_ conns: [DBConnectionObject], for tableView: NSTableView) {
+			let changes = conns.difference(from: self.conns) {
+				$0.id == $1.id
+			}
+			
+			for change in changes {
+				switch change {
+				case .remove(_, let conn, _):
+					connHistorys[conn.id] = nil
+				default:
+					break
+				}
+			}
+			conns.forEach {
+				connHistorys[$0.id] = ($0.download, $0.upload)
+			}
+			
+			guard let partialChanges = self.conns.applying(changes) else {
+				return
+			}
+			self.conns = conns
+
+			let indicesToReload = IndexSet(zip(partialChanges, conns).enumerated().compactMap { index, pair -> Int? in
+				(pair.0.id == pair.1.id && pair.0 != pair.1) ? index : nil
+			})
+
+			tableView.reloadData(changes, indexs: indicesToReload)
 		}
 		
 		
@@ -196,14 +234,18 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 		
 		func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 			
-			guard let cellView = tableView.createCellView(with: "ConnsTableCellView"),
-				  let s = tableColumn?.identifier.rawValue.split(separator: ".").last,
-				  let tc = TableColumn(rawValue: String(s))
+			guard let identifier = tableColumn?.identifier,
+				  let cellView = tableView.makeCellView(with: identifier.rawValue, owner: self),
+				  let s = identifier.rawValue.split(separator: ".").last,
+				  let tc = TableColumn(rawValue: String(s)),
+				  row >= 0,
+				  row < conns.count,
+				  let tf = cellView.textField
 			else { return nil }
 			
 			let conn = conns[row]
 			
-			cellView.textField?.objectValue = {
+			tf.objectValue = {
 				switch tc {
 				case .host:
 					return conn.host
@@ -211,6 +253,12 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 					return conn.sniffHost
 				case .process:
 					return conn.process
+				case .dlSpeed:
+					return conn.downloadSpeedString
+//					return conn.downloadSpeed
+				case .ulSpeed:
+					return conn.uploadSpeedString
+//					return conn.uploadSpeed
 				case .dl:
 					return conn.downloadString
 				case .ul:
@@ -246,103 +294,4 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 		}
 
 	}
-}
-
-
-extension NSTableView {
-	/// Applies multiple animated updates in stages using `StagedChangeset`.
-	///
-	/// - Note: There are combination of changes that crash when applied simultaneously in `performBatchUpdates`.
-	///         Assumes that `StagedChangeset` has a minimum staged changesets to avoid it.
-	///         The data of the data-source needs to be updated synchronously before `performBatchUpdates` in every stages.
-	///
-	/// - Parameters:
-	///   - stagedChangeset: A staged set of changes.
-	///   - interrupt: A closure that takes an changeset as its argument and returns `true` if the animated
-	///                updates should be stopped and performed reloadData. Default is nil.
-	///   - setData: A closure that takes the collection as a parameter.
-	///              The collection should be set to data-source of NSTableView.
-	
-	func reload<C>(
-		using stagedChangeset: StagedChangeset<C>,
-		interrupt: ((Changeset<C>) -> Bool)? = nil,
-		setData: (C) -> Void
-	) {
-		if case .none = window, let data = stagedChangeset.last?.data {
-			setData(data)
-			return reloadData()
-		}
-		
-		for changeset in stagedChangeset {
-			if let interrupt = interrupt, interrupt(changeset), let data = stagedChangeset.last?.data {
-				setData(data)
-				return reloadData()
-			}
-			
-			beginUpdates()
-			setData(changeset.data)
-			
-			if !changeset.elementDeleted.isEmpty {
-				removeRows(at: IndexSet(changeset.elementDeleted.map { $0.element }))
-			}
-			
-			if !changeset.elementUpdated.isEmpty {
-				reloadData(forRowIndexes: IndexSet(changeset.elementUpdated.map { $0.element }), columnIndexes: IndexSet(0..<tableColumns.count))
-			}
-			
-			if !changeset.elementInserted.isEmpty {
-				insertRows(at: IndexSet(changeset.elementInserted.map { $0.element }))
-			}
-			endUpdates()
-		}
-	}
-	
-	
-	func createCellView(with identifier: String) -> NSTableCellView? {
-		// https://stackoverflow.com/a/27624927
-		
-		var cellView: NSTableCellView?
-		if let spareView = makeView(withIdentifier: .init(identifier),
-			owner: self) as? NSTableCellView {
-
-			// We can use an old cell - no need to do anything.
-			cellView = spareView
-
-		} else {
-
-			// Create a text field for the cell
-			let textField = NSTextField()
-			textField.backgroundColor = NSColor.clear
-			textField.translatesAutoresizingMaskIntoConstraints = false
-			textField.isBordered = false
-			textField.font = .systemFont(ofSize: 13)
-			textField.lineBreakMode = .byTruncatingTail
-
-			// Create a cell
-			let newCell = NSTableCellView()
-			newCell.identifier = .init(identifier)
-			newCell.addSubview(textField)
-			newCell.textField = textField
-
-			// Constrain the text field within the cell
-			newCell.addConstraints(
-				NSLayoutConstraint.constraints(withVisualFormat: "H:|[textField]|",
-					options: [],
-					metrics: nil,
-					views: ["textField" : textField]))
-
-			newCell.addConstraint(.init(item: textField, attribute: .centerY, relatedBy: .equal, toItem: newCell, attribute: .centerY, multiplier: 1, constant: 0))
-			
-
-			textField.bind(NSBindingName.value,
-						   to: newCell,
-				withKeyPath: "objectValue",
-				options: nil)
-
-			cellView = newCell
-		}
-		
-		return cellView
-	}
-	
 }
