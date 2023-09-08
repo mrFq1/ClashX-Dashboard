@@ -5,7 +5,6 @@
 //
 
 import Cocoa
-import DifferenceKit
 
 struct DBConnectionSnapShot: Codable {
 	let downloadTotal: Int
@@ -49,7 +48,7 @@ struct DBMetaConnectionData: Codable, Hashable {
 }
 
 
-class DBConnectionObject: NSObject, Differentiable {
+class DBConnectionObject: NSObject {
 	@objc let id: String
 	@objc let host: String
 	@objc let sniffHost: String
@@ -67,9 +66,6 @@ class DBConnectionObject: NSObject, Differentiable {
 	@objc let destinationIP: String?
 	@objc let type: String
 	
-	var differenceIdentifier: String {
-		return id
-	}
 	
 	func isContentEqual(to source: DBConnectionObject) -> Bool {
 		download == source.download &&
