@@ -12,6 +12,8 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 		case host = "Host"
 		case sniffHost = "Sniff Host"
 		case process = "Process"
+		case dlSpeed = "DL Speed"
+		case ulSpeed = "UL Speed"
 		case dl = "DL"
 		case ul = "UL"
 		case chain = "Chain"
@@ -80,6 +82,10 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 				sort = .init(keyPath: \DBConnectionObject.sniffHost, ascending: true)
 			case .process:
 				sort = .init(keyPath: \DBConnectionObject.process, ascending: true)
+			case .dlSpeed:
+				sort = .init(keyPath: \DBConnectionObject.downloadSpeed, ascending: true)
+			case .ulSpeed:
+				sort = .init(keyPath: \DBConnectionObject.uploadSpeed, ascending: true)
 			case .dl:
 				sort = .init(keyPath: \DBConnectionObject.download, ascending: true)
 			case .ul:
@@ -96,8 +102,6 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 				sort = .init(keyPath: \DBConnectionObject.destinationIP, ascending: true)
 			case .type:
 				sort = .init(keyPath: \DBConnectionObject.type, ascending: true)
-			default:
-				sort = nil
 			}
 			
 			tableColumn.sortDescriptorPrototype = sort
@@ -140,6 +144,9 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 		
 		var conns = data.map(DBConnectionObject.init)
 		
+		let connHistorys = context.coordinator.connHistorys
+		conns.forEach {
+			$0.updateSpeeds(connHistorys[$0.id])
 		}
 		
 		conns = updateSorts(conns, tableView: tableView)
@@ -184,6 +191,7 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 		var parent: ConnectionsTableView
 		
 		var conns = [DBConnectionObject]()
+		var connHistorys = [String: (download: Int64, upload: Int64)]()
 
 		init(parent: ConnectionsTableView) {
 			self.parent = parent
@@ -193,6 +201,19 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 			let changes = conns.difference(from: self.conns) {
 				$0.id == $1.id
 			}
+			
+			for change in changes {
+				switch change {
+				case .remove(_, let conn, _):
+					connHistorys[conn.id] = nil
+				default:
+					break
+				}
+			}
+			conns.forEach {
+				connHistorys[$0.id] = ($0.download, $0.upload)
+			}
+			
 			guard let partialChanges = self.conns.applying(changes) else {
 				return
 			}
@@ -232,6 +253,12 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 					return conn.sniffHost
 				case .process:
 					return conn.process
+				case .dlSpeed:
+					return conn.downloadSpeedString
+//					return conn.downloadSpeed
+				case .ulSpeed:
+					return conn.uploadSpeedString
+//					return conn.uploadSpeed
 				case .dl:
 					return conn.downloadString
 				case .ul:
