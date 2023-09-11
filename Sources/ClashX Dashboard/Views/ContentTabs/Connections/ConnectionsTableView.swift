@@ -214,6 +214,15 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 				connHistorys[$0.id] = ($0.download, $0.upload)
 			}
 			
+			let selectedID: String? = {
+				let selectedRow = tableView.selectedRow
+				guard selectedRow >= 0, selectedRow < self.conns.count else {
+					return nil
+				}
+				return self.conns[selectedRow].id
+			}()
+			
+			
 			guard let partialChanges = self.conns.applying(changes) else {
 				return
 			}
@@ -222,8 +231,12 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 			let indicesToReload = IndexSet(zip(partialChanges, conns).enumerated().compactMap { index, pair -> Int? in
 				(pair.0.id == pair.1.id && pair.0 != pair.1) ? index : nil
 			})
-
+			
 			tableView.reloadData(changes, indexs: indicesToReload)
+			
+			if let index = self.conns.firstIndex(where: { $0.id == selectedID }) {
+				tableView.selectRowIndexes(.init(integer: index), byExtendingSelection: true)
+			}
 		}
 		
 		
