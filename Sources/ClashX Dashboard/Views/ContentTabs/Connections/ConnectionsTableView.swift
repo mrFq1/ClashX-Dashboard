@@ -245,6 +245,8 @@ struct ConnectionsTableView<Item: Hashable>: NSViewRepresentable {
 			
 			let conn = conns[row]
 			
+			tf.isEditable = false
+			tf.isSelectable = true
 			tf.objectValue = {
 				switch tc {
 				case .host:
