@@ -11,10 +11,11 @@ struct SidebarLabel: View {
 	@State var iconName: String
 	
     var body: some View {
-		HStack {
+		Label {
+			Text(item.rawValue)
+		} icon: {
 			Image(systemName: iconName)
 				.foregroundColor(.accentColor)
-			Text(item.rawValue)
 		}
     }
 }
