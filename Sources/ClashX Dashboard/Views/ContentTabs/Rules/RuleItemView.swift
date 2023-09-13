@@ -18,13 +18,21 @@ struct RuleItemView: View {
 				.frame(width: 30)
 			
 			VStack(alignment: .leading) {
-				if let payload = rule.payload,
-				   payload != "" {
-					Text(rule.payload!)
-						.font(.system(size: 14))
+				HStack(alignment: .bottom, spacing: 18) {
+					if let payload = rule.payload,
+					   payload != "" {
+						Text(rule.payload!)
+							.font(.system(size: 14))
+					}
+					
+					if rule.size > 0 {
+						Text("size: \(rule.size)")
+							.font(.system(size: 12))
+							.foregroundColor(.secondary)
+					}
 				}
 				
-				HStack() {
+				HStack {
 					Text(rule.type)
 						.foregroundColor(.secondary)
 						.frame(width: 120, alignment: .leading)
