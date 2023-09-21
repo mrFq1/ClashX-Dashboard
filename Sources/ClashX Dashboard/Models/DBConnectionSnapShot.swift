@@ -107,8 +107,8 @@ class DBConnectionObject: NSObject {
 		
 		downloadSpeed = 0
 		uploadSpeed = 0
-		downloadSpeedString = ""
-		uploadSpeedString = ""
+		downloadSpeedString = "-"
+		uploadSpeedString = "-"
 	}
 	
 	
@@ -116,8 +116,8 @@ class DBConnectionObject: NSObject {
 		guard let old = old else {
 			downloadSpeed = 0
 			uploadSpeed = 0
-			downloadSpeedString = ""
-			uploadSpeedString = ""
+			downloadSpeedString = "-"
+			uploadSpeedString = "-"
 			return
 		}
 		
@@ -126,18 +126,18 @@ class DBConnectionObject: NSObject {
 		downloadSpeed = download - old.download
 		uploadSpeed = upload - old.upload
 		
-		if downloadSpeed >= 0 {
+		if downloadSpeed > 0 {
 			downloadSpeedString = byteCountFormatter.string(fromByteCount: downloadSpeed) + "/s"
 		} else {
 			downloadSpeed = 0
-			downloadSpeedString = ""
+			downloadSpeedString = "-"
 		}
 		
-		if uploadSpeed >= 0 {
+		if uploadSpeed > 0 {
 			uploadSpeedString = byteCountFormatter.string(fromByteCount: uploadSpeed) + "/s"
 		} else {
 			uploadSpeed = 0
-			uploadSpeedString = ""
+			uploadSpeedString = "-"
 		}
 	}
 }
