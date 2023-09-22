@@ -130,10 +130,10 @@ class ClashLogStorage: ObservableObject {
 		
 		let date: Date
 		let level: ClashLogLevel
-		let log: String
+		@objc let log: String
 		
 		let levelColor: NSColor
-		let levelString: String
+		@objc let levelString: String
 		
 		init(level: String, log: String) {
 			id = UUID().uuidString
